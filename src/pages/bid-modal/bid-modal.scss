@@ -1,0 +1,35 @@
+page-bid-modal {
+	.card-header h2 {
+		font-weight: 600;
+	}
+	.current-bid {
+		float: right;
+		width: auto;
+		max-width: 50%;
+		.upforgrabs {
+			text-align: right;
+			font-weight: 500;
+			color: #02a92f;
+			font-style: italic;
+			padding: .2em;
+			white-space: normal;
+			text-shadow: 0 0 1px #ffcf0e, 0 0 2px #ffcf0e, 0 1px 2px #ffcf0e;
+			animation: hueperfance 2.14s infinite linear;
+		}
+		h2 {
+    		font-size: 2em;
+		}
+		p {
+			white-space: normal;
+		}
+	}
+	input.text-input {
+	    //text-shadow: 1px 1px 0 black, 1px 2px 0 black, 1px 3px 0 #92ff9f, 2px 4px 0 white, 3px 5px 0 black;
+    	font-size: 1.2em;
+    	font-weight: 600;
+	}
+	.hasTask h2 {
+		font-weight: 500;
+		color: #32db64;
+	}
+}

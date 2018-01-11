@@ -1,0 +1,50 @@
+page-dashboard {
+	.average-sum {
+		// background: #96f6ff;
+		font-style: italic;
+		font-weight: 500;
+		font-size: 1.1em;
+		margin: -1em 0 1em 0;
+		color: #898989;
+		background: #f3f3f3;
+		border-radius: .5em;
+		font-family: 'Roboto';
+	}
+	.points.badge {
+		border-radius: 0 1em 1em 0 / 0 50% 50% 0;
+		background-color: #d78b02;
+	}
+	.row {
+		border-bottom: 1px solid #e9e9e9;
+		align-items: center;
+	}
+	.col:last-child {
+		text-align: right;
+	}
+	.headrow, .average-sum {
+		border: none;
+	}
+	.headrow {
+		.col {
+			cursor: pointer;
+		}
+		.col:first-child, .col:nth-child(2) {
+			cursor: default;
+		}
+		.col.active h4 {
+			font-weight: 700;
+		}
+	}
+	.active-user {
+		background: #d8e6ff;
+		font-size: 1.4em;
+		border-radius: 1em 0 0 1em / 50% 0 0 50%;
+		.col:first-child, .col:nth-child(2) {
+			transform: translateX(.5em);
+		}
+	}
+	.badge {
+		font-size: .8em;
+	}
+
+}

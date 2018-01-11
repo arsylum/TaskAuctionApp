@@ -1,0 +1,85 @@
+<ion-header>
+
+  <ion-navbar>
+    <user-info-display></user-info-display>
+
+    <ion-title>Bid for task</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="this.viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+        
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+<ion-card>
+  <ion-card-header>
+    <h2>{{task.name}}
+    <small *ngIf="type == 'spontaneous'">(<ion-badge  color="secondary"><span class="swank-ponts">{{task.fixed_value}}</span></ion-badge> each)</small>
+    </h2>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item class="current-bid"><h3 *ngIf="task.bid">Current price</h3>
+      <h3 *ngIf="type == 'dinner' && task.winners.length > 0">Current cooks</h3>
+
+      <div *ngIf="task.winners.length < 1" class="upforgrabs">
+        <span *ngIf="type == 'auction'">Be the <strong>first</strong>,<br> name your price!</span>
+        <span *ngIf="type == 'dinner'">Quieres cocinar?</span>
+    </div>
+    <p class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners">
+      {{ this.stateProvider.getUserName(winner) }}
+    </ion-badge></p>
+    <h2 class="swank-points">{{task.bid}}</h2>
+  </ion-item>
+  <p>{{task.description}}</p>
+
+  </ion-card-content> 
+  
+</ion-card>
+
+  <ion-item *ngIf="task.winners.length > 0 && !userHasTask() && (type == 'auction' || type == 'dinner')">
+    <button ion-button full (click)="submitCollaborate($event)">
+      Join the fun - Do it together
+    </button>
+    <p *ngIf="type == 'auction'"><small>Points will be split evenly among participants</small></p>
+    <p *ngIf="type == 'dinner'"><small>Every cook will receive <strong>{{ this.stateProvider.settings.dinner_value }}</strong> Points.</small></p>
+  </ion-item>
+
+  <ion-item class="hasTask" *ngIf="userHasTask()">
+    <h2 *ngIf="type == 'auction'">You currently hold this task! Sick!</h2>
+    <h2 *ngIf="type == 'dinner'">You are cooking on this day! Make a feast!</h2>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label *ngIf="type == 'auction' && task.bid">My minimal offer is</ion-label>
+    <ion-label *ngIf="type == 'auction' && !task.bid">My initial offer is</ion-label>
+    <ion-input *ngIf="type == 'auction'" max="{{ (task.bid - 1) }}" type="number" placeholder="Your Bid" [(ngModel)]="inputs.bid" class="points"></ion-input>
+
+    <button *ngIf="type == 'auction'" ion-button item-end (click)="submitAuctionBid($event)">
+      Place Bid
+    </button>
+    <button *ngIf="type == 'spontaneous'" ion-button full color="secondary" (click)="submitSpontClaim($event)">
+      <span *ngIf="!userHasTask()">I did it!</span>
+      <span *ngIf="userHasTask()">Oops, I did it again!</span>
+    </button>
+    <button *ngIf="type == 'spontaneous' && userHasTask()" ion-button full color="danger" (click)="submitSpontDisclaim($event)">
+      Oh actually I didn't do that.
+    </button>
+    <div *ngIf="type == 'dinner'">
+      <button *ngIf="!userHasTask()" ion-button full (click)="submitDinnerClaim($event)">Claim Dinner</button>
+      <button *ngIf="userHasTask()" ion-button full color="danger" (click)="abandonDinner($event)">Abandon Dinner</button>
+    </div>
+  </ion-item>
+  
+  <button ion-button full color="light" icon-left
+    (click)="this.viewCtrl.dismiss()">
+    <ion-icon name="arrow-back"></ion-icon>
+    Nevermind
+  </button>
+    
+</ion-content>

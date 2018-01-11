@@ -1,0 +1,64 @@
+<!--
+  Generated template for the TaskEditModal page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <!-- <user-info-display></user-info-display> -->
+
+    <ion-title>Edit task</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="this.viewCtrl.dismiss()">
+        <ion-icon name="close"></ion-icon>
+        
+      </button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit(taskForm.value)">
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input formControlName="name" type="text" pattern=".{1,50}"></ion-input>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label stacked>Description</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label stacked>Type</ion-label>
+      <ion-select formControlName="type">
+        <ion-option value="auction">Auction</ion-option>
+        <ion-option value="spontaneous">Spontaneous</ion-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item *ngIf="this.taskForm.value.type == 'auction'">
+      <ion-label stacked>Interval</ion-label>
+      <ion-select formControlName="interval">
+        <ion-option value="default">Not implemented!</ion-option>
+        <ion-option value="week">Once a week</ion-option>
+        <ion-option value="twoweeks">Once every two weeks</ion-option>
+        <ion-option value="fourweeks">Once every four weeks</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="this.taskForm.value.type == 'spontaneous'">
+      <ion-label stacked>Fixed Value</ion-label>
+      <ion-input formControlName="fixed_value" type="number"></ion-input>
+    </ion-item>
+  </form>
+
+  <button ion-button full color="primary" (click)="submit()">Submit!</button>
+  <button ion-button full color="danger" *ngIf="this.oldTask.status !== 'deleted'" (click)="delete()">Delete!</button>
+  <button ion-button full color="danger" *ngIf="this.oldTask.status === 'deleted'" (click)="undelete()">Undelete</button>
+</ion-content>

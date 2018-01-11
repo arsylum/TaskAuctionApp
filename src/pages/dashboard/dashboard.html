@@ -1,0 +1,98 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <user-info-display></user-info-display>
+
+    <ion-title>Dashboard</ion-title>
+
+    <ion-badge color="danger" *ngIf="this.stateProvider.settings.auctionState == 2">Maintenance</ion-badge>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  
+  <ion-grid>
+    <ion-row class="headrow">
+      <ion-col col-auto>
+        <h4>#</h4>
+      </ion-col>
+      <ion-col>
+        <h4>Name</h4>
+      </ion-col>
+      <ion-col (click)="dashboardProvider.sortUsers('current_gain')" [ngClass]="getThClass('current_gain')">
+        <h4>Current Week 
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'current_gain'" name="ios-arrow-down"></ion-icon>
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'current_gain_inv'" name="ios-arrow-up"></ion-icon>
+        </h4>
+      </ion-col> 
+      <ion-col (click)="dashboardProvider.sortUsers('points_lastweek')" [ngClass]="getThClass('points_lastweek')">
+        <h4>Last Week
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points_lastweek'" name="ios-arrow-down"></ion-icon>
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points_lastweek_inv'" name="ios-arrow-up"></ion-icon>
+        </h4>
+      </ion-col>
+      <ion-col (click)="dashboardProvider.sortUsers('points_avg_fourweeks')" [ngClass]="getThClass('points_avg_fourweeks')">
+        <h4>4 weeks avg
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points_avg_fourweeks'" name="ios-arrow-down"></ion-icon>
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points_avg_fourweeks_inv'" name="ios-arrow-up"></ion-icon>
+        </h4>
+      </ion-col>
+      <ion-col (click)="dashboardProvider.sortUsers('points')" [ngClass]="getThClass('points')">
+        <h4>Total
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points'" name="ios-arrow-down"></ion-icon>
+          <ion-icon *ngIf="dashboardProvider.current_sort === 'points_inv'" name="ios-arrow-up"></ion-icon>
+        </h4>
+      </ion-col>
+    </ion-row>
+        
+    <ion-row class="average-sum">
+      <ion-col col-auto></ion-col>
+      <ion-col>
+        Averages:
+      </ion-col>
+      <ion-col>
+        {{ dashboardProvider.average.current_gain.toFixed(2) }}
+      </ion-col>
+      <ion-col>
+        {{ dashboardProvider.average.lastweek.toFixed(2) }}
+      </ion-col>
+      <ion-col>
+        {{ dashboardProvider.average.avg_fourweeks.toFixed(2) }}
+      </ion-col>
+      <ion-col>
+        {{ dashboardProvider.average.total.toFixed(2) }}
+      </ion-col>
+    </ion-row>
+    
+    <ion-row *ngFor="let user of this.getUsers(); let i = index" [ngClass]="getRowClass(user)">
+      <ion-col col-auto>{{(i+1)}}</ion-col>
+      <ion-col>
+        {{user.name}}
+      </ion-col>
+      <ion-col>
+        <ion-badge *ngIf="user.current_gain !== null" class="points">
+          <ion-icon name="add-circle"></ion-icon> {{user.current_gain}}
+        </ion-badge> ({{ percent(user.current_gain_rel) }})
+      </ion-col>
+      <ion-col>
+        <ion-badge>{{user.points_lastweek}}</ion-badge> ({{ percent(user.points_lastweek_rel) }})
+      </ion-col>
+      <ion-col>
+        <ion-badge>{{user.points_avg_fourweeks}}</ion-badge> ({{ percent(user.points_avg_fourweeks_rel) }})
+      </ion-col>
+      <ion-col>
+        ({{ percent(user.points_rel) }}) <ion-badge>{{user.points}}</ion-badge> 
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+
+</ion-content>

@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>User Settings</ion-title>
+	  <ion-buttons end>
+	   	<button *ngIf="userSelected" ion-button icon-left (click)="this.viewCtrl.dismiss()">
+        <ion-icon name="checkmark"></ion-icon>
+        Done
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+<div *ngIf="!userSelected">
+	<h6>Select Task Auction User</h6>
+
+  <ion-searchbar (ionInput)="filterList()" [(ngModel)]="searchstr"></ion-searchbar>
+
+  <ion-list>
+    <button ion-item 
+      (click)="selectEntry($event, user)"
+      *ngFor="let user of users"
+      [ngClass]="{selected: userSelected}">
+      {{ user.name }}<ion-badge item-end>{{ user.points }}</ion-badge>
+    </button>
+    <button *ngIf="users.length < 1" ion-button full (click)="createUser();">
+      Create this user
+    </button>
+  </ion-list>
+</div>
+
+<ion-item *ngIf="userSelected" class="selectedUser">
+  {{ users[0].name }}
+  <button ion-button item-end (click)="clearInput();">
+    Switch User
+  </button>
+</ion-item>
+
+<ion-card *ngIf="userSelected">
+  <ion-card-header>
+    Points: <span class="swank-points">{{this.stateProvider.user.points }}</span> 
+  </ion-card-header>
+</ion-card>
+
+<ion-card class="pointAdjustmentWidget" *ngIf="userSelected">
+  <ion-card-header>
+    Manual Point Adjustment
+  </ion-card-header>
+ <ion-card-content>
+
+    <ion-item>
+      <ion-label>Reason:</ion-label>
+      <ion-input type="string" [(ngModel)]="deltareason" ></ion-input>
+    </ion-item>
+    <ion-item>
+      <button ion-button item-start icon-only color="danger" round (click)="allocatePoints(-1)">
+        <ion-icon name="remove"></ion-icon>
+      </button>  
+      
+      <button ion-button item-end  icon-only color="secondary" round (click)="allocatePoints(1)">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-input type="number" placeholder="Amount" [(ngModel)]="deltapoints" ></ion-input>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
+
+<ion-card class="pointTransactionHistory" *ngIf="userSelected">
+  <ion-card-header>
+    Point Transaction History
+  </ion-card-header>
+  <ion-card-content>
+    <ion-item-group>
+      <ion-item *ngFor="let transaction of this.stateProvider.user.transactions">
+        <ion-badge color="secondary" class="points" *ngIf="transaction.points > 0">
+          <ion-icon name="add"></ion-icon> {{transaction.points}}
+        </ion-badge>
+        <ion-badge color="danger" class="points" *ngIf="transaction.points < 0">
+          <ion-icon name="remove"></ion-icon> {{-1 * transaction.points}}
+        </ion-badge>
+        <p item-end class="transinfo">
+          <ion-badge>{{transaction.time}}</ion-badge><br>
+          <ion-badge color="dark">{{ this.stateProvider.getTaskName(transaction.task_id) }}</ion-badge><br>
+          <ion-badge color="light">{{transaction.ip}}</ion-badge>
+        </p>
+        <p>{{transaction.comment}}</p>
+      </ion-item>
+    </ion-item-group>
+  </ion-card-content>
+</ion-card>
+</ion-content>

@@ -1,0 +1,249 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+// html {
+// 	font-size: 3.6mm; // check devices?
+// }
+
+.error, .success {
+	 .toast-wrapper {
+		background: rgba(66,0,0,.9);
+		text-align: center;
+		box-shadow: 0 1px 15px rgba(0,0,0,.6);
+		.toast-message {
+			font-weight: 600;
+			color: #ffd4d4;
+		}
+	}
+}
+.success .toast-wrapper {
+	background: rgba(0, 215, 0, 0.79); //rgba(0,66,0,.9);
+	.toast-message { color: #eeffed; //#0c640c;
+		text-shadow: 0 0 0 #f2ff00;
+		//0 0 0 #afa, 0 -1px 0 #fff;
+	}
+}
+
+.item .label h3 {
+	margin-top: 0;
+}
+
+
+.item-divider {
+	background: #0b1e40; // #f1ffdc; //#ffb724;
+	font-weight: 600;
+		color: #ffc18a; //#444547;
+	box-shadow: 0px 2px 5px rgba(0,0,0,.6);
+	    transform: translateY(-1px);
+
+    &.nooo {
+    	background: #ad0000;
+    	color: #ffdada;
+    	// animation: seizure .4s infinite alternate cubic-bezier(.45,.05,.55,.95),
+    	// 			swank-pulse 4s infinite ease-in-out,
+    	// 			swanky-swing .5s infinite alternate cubic-bezier(0.65, 0.05, 0.36, 1); 
+    	text-align: center;
+    	font-weight: 700;
+    	font-size: 1.4em;
+    	position: relative;
+    }
+}
+
+@keyframes seizure {
+	0% { background: #eedd00; color: #222200}
+	100% { background: #bba000; color: #335500;}
+}
+
+
+//// SNOW
+// $anim-size-h: 50px;
+// $anim-size-v: 35px;
+// .star {
+// 	position: fixed;
+// 	pointer-events: none;
+// 	height: auto;
+// 	animation: swing-lr 2s ease-in-out alternate infinite, swing-ud 1s cubic-bezier(0.46, 0.03, 0.52, 0.96) alternate infinite 1s, sparkle 2s linear alternate infinite;
+// }
+
+// @keyframes sparkle {
+// 	0% {
+// 		filter: brightness(50%);
+// 	}
+// 	100% {
+// 		filter: brightness(250%);
+// 	}
+// }
+
+// @keyframes swing-lr {
+// 	0% {
+// 		transform: translateX(-($anim-size-h)) rotateZ(45deg);
+// 	}
+// 	100% {
+// 		transform: translateX(($anim-size-h)) rotateZ(-45deg);
+// 	}
+// }
+
+// @keyframes swing-ud {
+// 	0% {
+// 		margin-top: 0;
+// 	}
+// 	100% {
+// 		margin-top: -($anim-size-v);
+// 	}
+// }
+
+
+//// /SNOW
+
+
+.current-bid {
+	float: right;
+	width: auto;
+	max-width: 50%;
+}
+
+.assignees {
+	white-space: normal;
+}
+.assignees ion-badge {
+	margin: .1em .1em 0 0;
+	font-size: .75em;
+}
+
+.points, .swank-points {
+	font-family: 'Roboto';
+}
+
+.swank-points {
+	color: #31008e !important;
+	font-weight: 700;
+	//font-family: 'Dimitri Swank';
+	font-size: 2em;
+	text-shadow: 1px 1px 0 #68ff81, 1px 2px 0 white, 1px 2px 0 white, 1px 2px 0 white, 2px 3px 0 black;
+	//transform: translateX(5px);
+	//animation: .25s swank-bling infinite alternate ease-in-out
+}
+
+@keyframes swank-pulse {
+	0% { filter: blur(0) hue-rotate(1deg); //hue-rotate(0deg); 
+	} 
+	48% { filter: blur(0) hue-rotate(140deg);}
+	50% { filter: blur(5px) hue-rotate(180deg); }
+	62% { filter: blur(0) hue-rotate(240deg);}
+	100% { filter: blur(0) hue-rotate(360deg); //filter: hue-rotate(359deg); 
+	}
+}
+@keyframes swank-swing {
+	0% { padding: 0 10px; }
+	100% { padding: 0 18px; }
+}
+
+@keyframes swanky-swing {
+	0% { top: 0; }
+	50% { top: .7em; }
+	100% { top: .2em; }
+}
+
+@keyframes hueperfance {
+	0% { filter: hue-rotate(1deg); }
+	100% { filter: hue-rotate(360deg); }
+}
+
+///////////////////////////
+// Task status
+
+
+.available {
+	background: #fff9ed;
+	color: #237;
+	text-shadow: 1px 0 0 #8fc, 0 -1px 0 #8fc, -1px 0 0 #8fc, 1px 1px 0 #8fc, -1px -1px 0 #8fc, -1px 1px 0 #8fc, 0 1px 0 #8fc, 1px -1px 0 #8fc;
+	font-weight: 700;
+	// animation: hueperfance 4.14s infinite linear;
+	// animation: .75s swank-swing infinite alternate ease-in-out,
+	// 			1.337s swank-pulse infinite linear,
+				// 5.14s hueperfance infinite linear;
+
+	.item-inner .label::before {
+		display: inline-block;
+		content: 'TAKE ME!';
+		float: right;
+		font-weight: 600;
+    	color: navy;
+	}
+}
+
+
+.alert-md .my-alert-button {
+	//background: map-get($colors, primary) !important;
+	color: #aaa;
+	margin-bottom: 8px;
+	text-transform: none;
+	&, &:hover {
+		background: map-get($colors, dark);
+	}
+	.button-inner {
+		justify-content: center;
+	}
+	&.done {
+		background: map-get($colors, secondary);
+		color: #c3ffc3;
+		font-weight: 600;
+	}
+	&.failed {
+		background: map-get($colors, danger);
+		color: #ffbd6f;
+		font-weight: 600;
+	}
+	&.irrelevant, &.button-md-light {
+		background: #ccc;
+		color: #777777;
+	}
+	&.irrelevant {
+		filter: blur(0.25px);
+	}
+}
+
+.done {
+	// background: #b3ffb3;
+	.item-inner .label::before {
+		display: inline-block;
+		content: 'Done!';
+		float: right;
+		font-weight: 600;
+    	color: #00a000;
+	}
+}
+.failed {
+	background: #ff6a6a;
+	.item-inner .label::before {
+		display: inline-block;
+		content: 'Failed!';
+		float: right;
+		font-weight: 600;
+    	color: #a00a00;
+	}
+}
+.irrelevant {
+    background: #d4d4d4;
+    color: #676767;
+    filter: blur(1px);
+    .item-inner .label::before {
+		display: inline-block;
+		content: 'wurscht';
+		float: right;
+	}
+}

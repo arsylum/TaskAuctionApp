@@ -1,0 +1,15 @@
+user-info-display {
+	float: right;
+	margin: 0 6px;
+	button.button {
+		margin: 0 0.2rem;
+		height: 2.4rem;
+		font-size: 1.4rem;
+		border-radius: 1em 0 0 1em / 50% 0 0 50%;
+	}
+	.points.badge {
+		border-radius: 0 1em 1em 0 / 0 50% 50% 0;
+		transform: translateY(6px);
+		background-color: #d78b02;
+	}
+}

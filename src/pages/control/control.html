@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <user-info-display></user-info-display>
+    <ion-title>Admin</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card><ion-card-header>Maintenance Mode</ion-card-header>
+    <ion-card-content>
+      <p>(Some features of maintenance mode are missing!)</p>
+      <h3>Edit/Add/Delete Tasks
+        <ion-badge *ngIf="stateProvider.settings.auctionState != 2" color="light">Maintenance Mode is off</ion-badge>
+        <ion-badge *ngIf="stateProvider.settings.auctionState == 2">Maintenance Mode is on</ion-badge>
+      </h3>
+
+      <div *ngIf="stateProvider.settings.auctionState != 2">
+        <button ion-button secondary (click)="enableMaintenanceMode()" >Enable Maintenance Mode</button>
+      </div>
+      <div *ngIf="stateProvider.settings.auctionState == 2">
+        <button ion-button secondary (click)="disableMaintenanceMode()">Disable Maintenance Mode</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card><ion-card-header>Plenum <h3>Distribute those points!</h3></ion-card-header>
+    <ion-card-content>
+      <ion-badge color="danger" *ngIf="!completionIsReady()"> Only {{ readyTasks() }} / {{ totalTasks() }} auction tasks are confirmed.</ion-badge>
+      <ion-badge color="secondary" *ngIf="completionIsReady()">Ready to move on!</ion-badge>
+      <br>
+      <button ion-button secondary (click)="finishPlenumMode()" [disabled]="!completionIsReady()">Progress to next week</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

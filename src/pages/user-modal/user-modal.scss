@@ -1,0 +1,38 @@
+page-user-modal {
+	.selectedUser {
+		font-size: 1.8em;
+		font-weight: 600;
+	}	
+	ion-card.card {
+		background: white;
+	    border: 1px #c7c7c7 solid;
+	    box-shadow: none;
+	    ion-card-header {
+	    	font-weight: 600;
+	    }
+	}
+	.header .button {
+		//background: blue
+	}
+
+	.searchbar {
+		position: sticky;
+		top: -1.7em;
+		z-index: 999;
+	}
+	.pointAdjustmentWidget .button-round {
+		width: 3em;
+		height: 3em;
+	}
+
+	.pointTransactionHistory .item {
+		border-bottom: 1px solid rgba(0,0,0,.1);
+		p {
+			white-space: normal;
+		}
+		.points { font-size: 1.2em; }
+	}
+	.transinfo {
+		text-align: right;
+	}
+}
