@@ -9,13 +9,15 @@ A system for efficient task distribution and transparency that was successfully 
 ### How does it work? 
 **In a Nutshell:** You earn points by doing tasks. These points are a metric for your contribution to the community. Tasks get distributed in an inverse auction - who offers to do it for the least amount of points, wins the tasks and has the remaining week to complete it. Then the cycle repeats. 
 
+The accumulated points can be political power, just a score, or whatever you want.
+
 *More in depth information will be available very soon!*
 
 ----------
 
 ### Deploying / Developing
 > **Prototype!**
-> This software is mostly a hacked together proof of concept. There has been no quality standards, no tests, no security, no documentation, no coherent plan or architecture. It is released to be available while a proper rebuild is underway ;-) 
+> This software is mostly a hacked together proof of concept. There has been no quality standards, no tests, no security, no documentation, no coherent plan or architecture. Yet it has already proven useful and is released here for whoever finds it interesting. Once the system itself evolves, a more efficient, secure, robust and maintainable rebuild is in order ;-)
 
 #### Admin / User Guide
 *TODO*
