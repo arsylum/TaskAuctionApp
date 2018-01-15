@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { StateProvider } from '../../providers/state/state';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'page-control',
@@ -10,12 +11,19 @@ export class ControlPage {
   public userCount;
   public points;
   private inMaintenanceMode: boolean;
+  public settingsForm: FormGroup;
 
   constructor(public navCtrl: NavController,
   public stateProvider: StateProvider,
-  public alertCtrl: AlertController
+  public alertCtrl: AlertController,
+  public formBuilder: FormBuilder
   ) {
     this.inMaintenanceMode = stateProvider.settings.auctionState == 2;
+
+    this.settingsForm = formBuilder.group({
+      closingTime : ['', Validators.pattern('(Mon|Tue|Wed|Thu|Fri|Sat|Sun) ([01][0-9]|2[0-3]):[0-5][0-9]')],
+      dinnerValue : ['', Validators.pattern('[0-9]+')],
+    });
   }
 
   enableMaintenanceMode() {
@@ -156,6 +164,11 @@ export class ControlPage {
   doFinishPlenumMode() {
     // addTransactions for all the auction tasks
     this.stateProvider.iterateToNextWeek();
+  }
 
+  onSubmit(value: any): void {
+    if(this.settingsForm.valid) {
+      //do stuff with this.settingsForm.dinnerValue or this.settingsForm.closingTime
+    }
   }
 }
