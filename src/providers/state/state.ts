@@ -173,7 +173,8 @@ export class StateProvider {
     return (this.getUser(this.uid) !== undefined);
   }
 
-  selectUser() {
+  selectUser(i?:number) {
+    if(i !== undefined) { this.uid = i; }
   	if(this.getUser(this.uid) === undefined) {
       // TODO
       console.warn('unknown user!');

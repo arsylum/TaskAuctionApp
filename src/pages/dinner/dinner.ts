@@ -15,6 +15,10 @@ export class DinnerPage {
   }
 
   taskClicked(event, task) {
+
+  	// chill out on quick user switch
+    if(event.target.className.indexOf('badge-md-light') > -1) { return null; }
+
     const modal = this.modalCtrl.create(BidModalPage, { 'task' : task, 'type' : 'dinner' });
     modal.present(); 
   }

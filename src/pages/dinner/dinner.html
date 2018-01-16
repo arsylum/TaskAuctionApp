@@ -18,7 +18,7 @@
     <button ion-item *ngFor="let task of stateProvider.tasks.dinner" (click)="taskClicked($event, task)">
       <h3>{{task.name}}</h3>
       <ion-badge *ngIf="task.winners.length < 1" color="danger" item-end>Impending starvation!</ion-badge>
-      <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
+      <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
     </button>
   </ion-list>
 </ion-content>

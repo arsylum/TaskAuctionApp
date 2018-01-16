@@ -71,6 +71,8 @@ export class AuctionPage {
   }
 
   taskClicked(event, task) {
+    console.log(event.target);
+    if(event.target.className.indexOf('badge-md-light') > -1) { return null; }
     if (this.stateProvider.settings.auctionState == 0
      || (this.stateProvider.settings.auctionState != 2 && task.type == 'spontaneous')) {
       const bidModal = this.modalCtrl.create(BidModalPage, { 'task' : task , type : task.type});
