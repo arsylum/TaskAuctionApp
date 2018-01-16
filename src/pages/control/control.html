@@ -47,7 +47,7 @@
           <ion-input formControlName="dinnerValue" type="number"></ion-input>
         </ion-item>
       </form>
-      <button ion-button secondary [disabled]="!settingsForm.valid" type="submit">Submit</button>
+      <button ion-button secondary [disabled]="!settingsForm.valid" type="submit" (click)="onSubmit()">Submit</button>
     </ion-card-content>
   </ion-card>
 </ion-content>

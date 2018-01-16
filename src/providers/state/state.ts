@@ -398,4 +398,13 @@ export class StateProvider {
       action: 'iterate_to_next_week'
     }).done(data => { this.setState(data, this); });
   }
+
+  updateSettings(values) {
+    this.loading();
+    $.post(this.backEndUrl, {
+      action: 'update_settings',
+      closing_time: values.closingTime,
+      dinner_value: values.dinnerValue
+    }).done(data => { this.setState(data, this); });
+  }
 }

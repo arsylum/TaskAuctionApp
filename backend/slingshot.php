@@ -39,6 +39,7 @@ switch($_POST['action']) {
 	case 'spont_bail': spont_bail(); break;
 	case 'add_transaction': add_transaction(); break;
 	case 'iterate_to_next_week': iterate_to_next_week(); break;
+	case 'update_settings': update_settings(); break;
   	case 'get_dashboard': return_dashboard(); break;
 	default: return_state();
 }
@@ -557,6 +558,17 @@ $ip = null
 
 }
 
+function update_settings() {
+	global $db, $msg;
+
+
+	if(!$db->query("UPDATE `settings` SET `value` = '" . $_POST['dinner_value'] . "' WHERE `key` = 'dinner_value';")) { die($db->error); }
+	if(!$db->query("UPDATE `settings` SET `value` = '" . $_POST['closing_time'] . "' WHERE `key` = 'closing_time';")) { die($db->error); }
+
+	$msg['suc'][] = 'Should be fine!';
+	return_state();
+
+}
 
 function iterate_to_next_week() {
 	global $db, $msg;

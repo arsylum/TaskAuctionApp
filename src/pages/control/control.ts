@@ -21,8 +21,8 @@ export class ControlPage {
     this.inMaintenanceMode = stateProvider.settings.auctionState == 2;
 
     this.settingsForm = formBuilder.group({
-      closingTime : ['', Validators.pattern('(Mon|Tue|Wed|Thu|Fri|Sat|Sun) ([01][0-9]|2[0-3]):[0-5][0-9]')],
-      dinnerValue : ['', Validators.pattern('[0-9]+')],
+      closingTime : [stateProvider.settings.closing_time, Validators.pattern('(Mon|Tue|Wed|Thu|Fri|Sat|Sun) ([01][0-9]|2[0-3]):[0-5][0-9]')],
+      dinnerValue : [stateProvider.settings.dinner_value, Validators.pattern('[0-9]+')],
     });
   }
 
@@ -166,9 +166,9 @@ export class ControlPage {
     this.stateProvider.iterateToNextWeek();
   }
 
-  onSubmit(value: any): void {
+  onSubmit() {
     if(this.settingsForm.valid) {
-      //do stuff with this.settingsForm.dinnerValue or this.settingsForm.closingTime
+      this.stateProvider.updateSettings(this.settingsForm.value);
     }
   }
 }
