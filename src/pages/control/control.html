@@ -34,4 +34,20 @@
       <button ion-button secondary (click)="finishPlenumMode()" [disabled]="!completionIsReady()">Progress to next week</button>
     </ion-card-content>
   </ion-card>
+  <ion-card><ion-card-header>Settings</ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="settingsForm" (ngSubmit)="onSubmit(settingsForm.value)">
+        <ion-item>
+          <ion-label floating>Closing Time</ion-label>
+          <ion-input formControlName="closingTime" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Dinner Value</ion-label>
+          <ion-input formControlName="dinnerValue" type="number"></ion-input>
+        </ion-item>
+      </form>
+      <button ion-button secondary [disabled]="!settingsForm.valid" type="submit">Submit</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
