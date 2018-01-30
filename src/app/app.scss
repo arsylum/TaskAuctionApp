@@ -68,6 +68,11 @@
 	100% { background: #bba000; color: #335500;}
 }
 
+page-auction, page-dinner {
+	.item-block {
+		cursor: pointer;
+	}
+}
 
 //// SNOW
 // $anim-size-h: 50px;

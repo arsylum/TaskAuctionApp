@@ -27,7 +27,7 @@
         <ion-icon name="speedometer"></ion-icon>
         Earn some points! <ion-icon name="trophy"></ion-icon> <ion-icon name="nutrition"></ion-icon> <ion-icon name="ice-cream"></ion-icon> <ion-icon name="nuclear"></ion-icon>
       </ion-item-divider></ng-template>
-    <button ion-item 
+    <div ion-item 
       *ngFor="let task of this.userTasks()"
       [ngClass]="this.stateProvider.getTaskClasses(task)"
       (click)="taskClicked($event, task)">
@@ -36,40 +36,40 @@
       <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
       <ion-badge class="points" item-end>{{task.bid}}</ion-badge>
       
-    </button>
+    </div>
 
     <ion-item-divider *ngIf="this.stolenTasks().length">Oh mään! Someone underbid you on those!</ion-item-divider>
-      <button ion-item
+    <div ion-item
       *ngFor="let task of this.stolenTasks()"
       [ngClass]="this.stateProvider.getTaskClasses(task)"
       (click)="taskClicked($event, task)">
       <h3>{{task.name}}</h3>
       <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
       <ion-badge item-end class="points">{{task.bid}}</ion-badge>
-    </button>
+    </div>
     <ion-item-divider>
       <span *ngIf="this.stateProvider.settings.auctionState === 0">You can haz theese tasks<span *ngIf="this.stateProvider.user.favtasks.length">, too</span>!</span>
       <span *ngIf="this.stateProvider.settings.auctionState !== 0">Other people's tasks</span>
     </ion-item-divider>
-    <button ion-item
+    <div ion-item
       *ngFor="let task of this.availableTasks()"
       [ngClass]="this.stateProvider.getTaskClasses(task)"
       (click)="taskClicked($event, task)">
       <h3>{{task.name}}</h3>
       <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
       <ion-badge item-end class="points">{{task.bid}}</ion-badge>
-    </button>
+    </div>
     <div id="spontasks" *ngIf="this.stateProvider.tasks.spontaneous.length">
       <ion-item-divider>Feeling spontaneous?
         <ion-badge item-end color="secondary" class="points"><ion-icon name="add-circle"></ion-icon> {{this.stateProvider.user_current_spont_gain}}</ion-badge>
       </ion-item-divider>
-      <button ion-item
+      <div ion-item
       *ngFor="let task of this.stateProvider.tasks.spontaneous"
       (click)="taskClicked($event, task)">
         <h3>{{task.name}} <ion-badge color="secondary" class="points">{{task.fixed_value}}</ion-badge></h3>
         <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p>
        
-      </button>
+      </div>
     </div>
     <div id="deltasks" *ngIf="stateProvider.settings.auctionState == 2">
       <ion-item-divider>Deleted Tasks</ion-item-divider>
