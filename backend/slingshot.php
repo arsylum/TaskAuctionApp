@@ -297,9 +297,9 @@ function edit_task() {
 	if($type === 'spontaneous') { $fix = ", `fixed_value` = " . intval($_POST['fixed_value']); }
 
 	if(!$db->query("UPDATE `tasks` SET 
-		`name` = '" . $_POST['name'] . "', 
-		`description` = '" . $_POST['description'] . "',
-		`type` = '" . $_POST['type'] . "'
+		`name` = '" . $db->real_escape_string($_POST['name']) . "', 
+		`description` = '" . $db->real_escape_string($_POST['description']) . "',
+		`type` = '" . $db->real_escape_string($_POST['type']) . "'
 		" . $fix . "
 		WHERE `id` = " . $tid . ";")) { die($db->error); }
 
@@ -414,7 +414,7 @@ function update_task_status() {
 	global $db;
 
 	if(empty($_POST['status'])) { $status = "null"; }
-	else { $status = "'" . $_POST['status'] . "'"; }
+	else { $status = "'" . $db->real_escape_string($_POST['status']) . "'"; }
 
 	if(!$db->query("UPDATE `tasks` SET `status` = " . $status . " WHERE `id` = " . intval($_POST['id']))) {
 		die($db->error);
@@ -505,7 +505,7 @@ function spont_bail() {
 function add_user() {
 	global $db;
 	if(!$db->query("INSERT INTO `users` (`name`, `points`) 
-		VALUES ('" . ($_POST['name']) . "', 0);")) {
+		VALUES ('" . $db->real_escape_string($_POST['name']) . "', 0);")) {
 		die($db->error);
 	}
 	return_state();
@@ -542,9 +542,9 @@ $ip = null
 	if(!empty($task_id)) { $fields .= "`task_id`, "; } 
 	$fields .=	"`points`, `comment`, `ip`";
 
-	$values = "'" . $uid . "', ";
+	$values = "'" . intval($uid) . "', ";
 	if(!empty($task_id)) { $values .= "'" . $task_id . "', "; }
-	$values .=	"'" . $points . "', '" . $comment . "', '" . $ip . "'";
+	$values .=	"'" . floatval($points) . "', '" . $db->real_escape_string($comment) . "', '" . $ip . "'";
 
 	$sql = "INSERT INTO `transactions` (" . $fields . ") VALUES (" . $values . ");";
 	if(!$db->query($sql)) {	die($db->error); }
@@ -562,8 +562,8 @@ function update_settings() {
 	global $db, $msg;
 
 
-	if(!$db->query("UPDATE `settings` SET `value` = '" . $_POST['dinner_value'] . "' WHERE `key` = 'dinner_value';")) { die($db->error); }
-	if(!$db->query("UPDATE `settings` SET `value` = '" . $_POST['closing_time'] . "' WHERE `key` = 'closing_time';")) { die($db->error); }
+	if(!$db->query("UPDATE `settings` SET `value` = '" . intval($_POST['dinner_value']) . "' WHERE `key` = 'dinner_value';")) { die($db->error); }
+	if(!$db->query("UPDATE `settings` SET `value` = '" . $db->real_escape_string($_POST['closing_time']) . "' WHERE `key` = 'closing_time';")) { die($db->error); }
 
 	$msg['suc'][] = 'Should be fine!';
 	return_state();
