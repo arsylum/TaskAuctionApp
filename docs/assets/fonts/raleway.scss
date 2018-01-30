@@ -1,0 +1,34 @@
+// Raleway Font
+// Google
+// SIL Open Font License, Version 1.1
+// http://scripts.sil.org/OFL
+
+$Raleway-font-path: $font-path !default;
+
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Raleway Light"), local("Raleway-Light"), url("#{$Raleway-font-path}/Raleway-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Raleway"), local("Raleway-Regular"), url("#{$Raleway-font-path}/Raleway-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  src: local("Raleway Medium"), local("Raleway-Medium"), url("#{$Raleway-font-path}/Raleway-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Raleway Bold"), local("Raleway-Bold"), url("#{$Raleway-font-path}/Raleway-Bold.ttf") format("truetype");
+}
