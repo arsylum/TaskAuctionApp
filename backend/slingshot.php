@@ -14,7 +14,7 @@ header("Access-Control-Allow-Headers: Content-Type");
  
 if(!isset($_POST['action'])) { die('Invalid backend call!'); }
 
-$creds = parse_ini_file("db.ini");
+require('./db.conf.php');
 $db = new mysqli($creds['host'], $creds['user'], $creds['pass'], $creds['base']);
 if ($db->connect_error) { die('Connect Error (' . $db->connect_errno . ') ' . $db->connect_error); }
 

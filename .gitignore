@@ -44,5 +44,5 @@ UserInterfaceState.xcuserstate
 package-lock.json 
 
 # environment config files
-backend/db.ini
+backend/db.conf.php
 src/providers/config/config.ts
