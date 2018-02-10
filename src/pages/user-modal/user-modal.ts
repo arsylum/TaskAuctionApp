@@ -64,8 +64,10 @@ export class UserModalPage {
   }
 
   selectEntry(ev:any, user: any) {
-  	this.searchstr = user.name;
-  	this.filterList();
+    this.stateProvider.uid = parseInt(user.id);
+    this.stateProvider.selectUser();
+    this.userSelected = true;
+    this.users = [this.stateProvider.user];
   }
   
   createUser() {
