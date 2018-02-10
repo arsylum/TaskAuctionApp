@@ -238,6 +238,7 @@ function getAuctionState() {
     } else {
 	    $now = new DateTime();
 	    $closingTime = DateTime::createFromFormat('D H:i', $settings['closing_time']);
+	    $closingTime->setISODate(intval($closingTime->format('Y')), intval($settings['active_week']), intval($closingTime->Format('N')));
 	    $currentWeek = $closingTime->format('W');
 
 	    if(intval($settings['active_week']) >= intval($currentWeek)
@@ -571,7 +572,7 @@ function update_settings() {
 }
 
 function iterate_to_next_week() {
-	global $db, $msg;
+	global $db, $msg, $settings;
 	$state = retrieve_state(true); // with uid_map
 
 	$positives = array(
@@ -664,13 +665,14 @@ function iterate_to_next_week() {
 
 	// update active week
 	$nextWeek = DateTime::createFromFormat('D H:i', $state['settings']['closing_time']);
+	while($nextWeek->getTimestamp() < time()) { $nextWeek->add(new DateInterval('P1W')); }
 	if(!$db->query("UPDATE `settings` SET `value` = '" . $nextWeek->format('W') . "' WHERE `key` = 'active_week';")) { die($db->error); }
 
 
 	// generate new dashboard stats
 	calculate_dashboard_stats();
 
-
+	$settings = array(); // unset to correctly re-calculate auction state
 	return_state();
 
 }
