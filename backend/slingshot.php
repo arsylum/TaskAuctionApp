@@ -240,7 +240,7 @@ function getAuctionState() {
 	    $closingTime = DateTime::createFromFormat('D H:i', $settings['closing_time']);
 	    $currentWeek = $closingTime->format('W');
 
-	    if(intval($settings['active_week']) === intval($currentWeek)
+	    if(intval($settings['active_week']) >= intval($currentWeek)
 		&& $now->getTimestamp() < $closingTime->getTimestamp()) {
 	    	$auction_state = 0;
 		} else { $auction_state = 1; }
