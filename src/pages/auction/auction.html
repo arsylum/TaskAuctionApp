@@ -15,6 +15,17 @@
 </ion-header>
 
 <ion-content>
+  <ion-card class="card card-md">
+
+    <ion-card-header class="card-header card-header-md">
+      <h2 style="color: #488aff; font-weight: 900;">Demo Version</h2>
+    </ion-card-header>
+
+    <ion-card-content style="color: #284a8f;" class="card-content card-content-md">
+      Feel free to test things, poke around, spam nonsense or give yourself infinite points. This instance will reset to an initial state on a regular basis. You can also change the active phase by setting a different closing time in the Control Room.
+    </ion-card-content>
+
+  </ion-card>
   <ion-item-group>
     <ion-item-divider *ngIf="this.userTasks().length; else no_tasks_message">
       You got these tasks
