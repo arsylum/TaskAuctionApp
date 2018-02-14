@@ -111,22 +111,25 @@ if(!$db->multi_query($msql)) {
 
 
 $words = [
-	['for', 'eating', 'all the deteriorating food', 'in', 'the pidgen death trap', 'like', 'a good carnivore'],
-	['because of', 'removing', 'those revealing stains', 'from', 'the guest room', 'with', 'a strong solvent'],
-	['for', 'deciphering', 'the ancient messages', 'in', 'the sacred chamber', 'withouth', 'an unfortunate incident'],
-	['in honor of', 'not surviving', 'the massive infection', 'all over', 'the body', 'with help of', 'the toxic concotion'],
-	['with respect for', 'surviving', 'the outbreak', 'of', 'the dark caverns', 'and', 'taking no damage'],
-	['for', 'splitting', 'that cake', 'into', 'subatomic particles', 'like', 'a pro'],
-	['for', 'patching', 'the countless holes', 'of', 'the bouncy castle', 'with', 'great prefection'],
-	['for', 'rocking', 'tha microphone', 'straight from', 'the top of my dome', 'like', 'a freestyler']
+	['destroying', 'killing', 'removing', 'adding', 'caressing', 'eating', 'reinforcing', 'repairing', 'decimating', 'annihilating', 'cleaning', 'undoing', 'securing', 'fixing', 'demolishing', 'feeding', 'shooting', 'enhancing', 'improving', 'fucking', 'unleashing', 'letting'],
+
+	['the', 'all', 'some', 'most'],
+	['evil', 'fermented', 'tasty', 'reinforced', 'dead', 'bloody', 'hungry', 'obese', 'spontaneous', 'ethical', 'polyamourous', 'slutty', 'naugty', 'fake', 'alternative', 'subatomic', 'plush', 'metaphorical', 'broken', 'insane', 'scientific', 'horrifying', 'bleeding', 'fucking', 'revealing', 'rotten', 'dangerous', 'deadly', 'freestyle', 'haunting', 'nauseating', 'leaky'],
+	['frog', 'bird', 'food', 'stains', 'monsters', 'debris', 'pidgeon', 'dude', 'vomit', 'blood', 'taps', 'devices', 'objects', 'material', 'machines', 'hardware', 'people', 'victims', 'sacrifices', 'porns', 'creatures', 'relics', 'merchandize', 'tools', 'evidence', 'corpses', 'organic matter', 'beast', 'plague', 'outbreak', 'contamination', 'invaders', 'enemies', 'friends', 'guests', 'investigators', 'peons', 'apprentices', 'masters', 'buns', 'sex robots', 'cake', 'leftovers', 'Tasty Thymie', 'military equipment', 'fragrances', 'experiments'],
+	['with', 'with', 'carrying', 'without', 'using', 'for', 'over', 'and'],
+	['a 3D laminator', 'a bun', 'lots of buns', 'a chainsaw', 'a tank', 'overwhelming force', 'love', 'the truth', 'mercy', 'a knive', 'leftovers', 'fists of steel', 'wisdom and knowledge', 'glory', 'lazer raptors', 'a gattling gun', 'a toothbrush', 'a hoover', 'Tasty Thymie', 'the extended cut collectors edition of The Lord of the Rings', 'logic and reason', 'pure luck', 'a cheeze burger', 'great pleasure', 'personal gain', 'a flamethrower', 'cat pee' , 'boobs', 'the name of the lord', 'nothing', 'anything', 'god', 'a toxic potion', 'collateral damage', 'farts', 'fun' ],
+	['in', 'in', 'on', 'into', 'out of', 'next to', 'close to', 'in front of', 'straight from'],
+	['the dark caverns', 'the pleasure chamber', 'the pidgeon death trap', 'the guest room', 'the sacret chamber', 'the dissolver', 'the deep well', 'the deep web', 'the bouncy castle', 'the basement', 'hell', 'the pit of trials', 'the dungeon', 'the black temple', 'space', 'the food', 'the dining room', 'the internet', 'the matrix', 'the top of my dome', 'their pants', 'the butt', 'da club', 'the forbidden realm', 'tha land of Mordor', 'grandmas armpits', 'the incinerator', 'the beyond']
+
 ]; $nwords = count($words)-1;
 $msql = '';
 for($i=0; $i<=42; $i++) {
 	$tid = mt_rand(1, $ntasks);
 	$uid = mt_rand(1,26);
-	$comment = '';
-	for($j=0; $j<7; $j++) {
-		$comment .= $words[mt_rand(0,$nwords)][$j] . ' ';
+	$comment = 'for ';
+	for($j=0; $j<8; $j++) {
+		$comment .= $words[$j][mt_rand(0,count($words[$j])-1)] . ' ';
+		// $comment .= $words[mt_rand(0,$nwords)][$j] . ' ';
 	}
 	// $plode = explode(' ', $comment, 4);
 	// $comment = ''; $k=mt_rand(1,3);
@@ -134,6 +137,7 @@ for($i=0; $i<=42; $i++) {
 	// 	if($k === $j) { $comment .= $tasks[$tid-1][1] . " "; }
 	// 	$comment .= $plode[$j] . " ";
 	// }
+	// print($comment . "\n");
 	$msql .= "INSERT INTO `transactions` (`uid`, `task_id`, `points`, `comment`, `ip`, `time`) VALUES ("
 			. $uid . ", " . $tid . ", " 
 			. floor(log(mt_rand(0,2000)/777 + 0.000001) * 1337) . ", '"
