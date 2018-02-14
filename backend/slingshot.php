@@ -700,14 +700,17 @@ function calculate_dashboard_stats() {
 	$last4wstart = (new DateTime())->getTimestamp() - (3600*24*27); // 27 days ago (passed 4 weeks)
 
 	$users = array();
-
+	if ($res = $db->query("SELECT `id` FROM `users`", MYSQLI_USE_RESULT)) {
+		while($row = $res->fetch_object()) { $users[intval($row->id)] = array('4w' => 0, '1w' => 0); }
+		$res->close();
+	}
+	
 	if ($res = $db->query("SELECT `uid`,`points`,`time` FROM `transactions`", MYSQLI_USE_RESULT)) {
 		while($row = $res->fetch_object()) { 
 			$time = (new DateTime($row->time))->getTimestamp();
 			if($time >= $last4wstart) {
 				$uid = intval($row->uid);
 				$points = floatval($row->points);
-				if(!isset($users[$uid])) { $users[$uid] = array('4w' => 0, '1w' => 0); }
 				$users[$uid]['4w'] += $points;
 				if($time >= $last1wstart) { $users[$uid]['1w'] += $points; }
 			}
