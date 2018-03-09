@@ -244,17 +244,23 @@ export class StateProvider {
     return auctionBal + spontBal + dinnerBal;
   }
 
-  addUser(name: string) {
+  addUser(name: string, callback: Function) {
     this.loading();
     $.post(this.backEndUrl, {
       action: 'add_user',
       name: name
     }).done(data => { 
       this.setState(data, this); 
-      this.uid = parseInt(this.users.filter((u) => {
+      let user = this.users.filter((u) => {
         return u.name === name;
-      })[0].id);
-      this.selectUser();
+      })[0];
+      // this.uid = parseInt(this.users.filter((u) => {
+      //   return u.name === name;
+      // })[0].id);
+      // this.selectUser();
+      if(callback !== undefined) {
+        callback.call(undefined, user);
+      }
     });
   }
 

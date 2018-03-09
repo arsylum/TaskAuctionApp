@@ -14,10 +14,11 @@
 
 <ion-content padding>
 
+<user-selector placeholder="Switch User" [entryClickCallback]="selectEntry" [that]="this"></user-selector>
 <div *ngIf="!userSelected">
 	<h6>Select Task Auction User</h6>
 
-  <ion-searchbar (ionInput)="filterList()" [(ngModel)]="searchstr"></ion-searchbar>
+  <!-- <ion-searchbar (ionInput)="filterList()" [(ngModel)]="searchstr"></ion-searchbar>
 
   <ion-list>
     <button ion-item 
@@ -29,14 +30,14 @@
     <button *ngIf="users.length < 1" ion-button full (click)="createUser();">
       Create this user
     </button>
-  </ion-list>
+  </ion-list> -->
 </div>
 
 <ion-item *ngIf="userSelected" class="selectedUser">
-  {{ users[0].name }}
-  <button ion-button item-end (click)="clearInput();">
+  {{ this.stateProvider.user.name }}
+<!--   <button ion-button item-end (click)="clearInput();">
     Switch User
-  </button>
+  </button> -->
 </ion-item>
 
 <ion-card *ngIf="userSelected">

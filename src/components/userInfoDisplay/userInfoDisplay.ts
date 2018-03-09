@@ -33,17 +33,9 @@ export class UserInfoDisplay {
 
 
 @NgModule({
-  declarations: [
-    UserInfoDisplay,
-  ],
-  imports: [
-    IonicModule,
-  ],
-  entryComponents: [
-    UserInfoDisplay,
-  ],
-  exports: [
-    UserInfoDisplay,
-  ]
+  declarations: [ UserInfoDisplay,],
+  imports: [ IonicModule,],
+  entryComponents: [ UserInfoDisplay,],
+  exports: [ UserInfoDisplay,]
 })
 export class UserInfoDisplayModule {}

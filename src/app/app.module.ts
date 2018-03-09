@@ -19,6 +19,7 @@ import { DashboardPage } from '../pages/dashboard/dashboard';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
 
 import { UserInfoDisplay, UserInfoDisplayModule } from '../components/userInfoDisplay/userInfoDisplay';
+import { UserSelectorComponent, UserSelectorComponentModule } from '../components/user-selector/user-selector';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -43,6 +44,7 @@ import { ConfigProvider } from '../providers/config/config';
     TaskEditModalPageModule,
     UserModalPageModule,
     UserInfoDisplayModule,
+    UserSelectorComponentModule,
     ControlPageModule,
   ],
   bootstrap: [IonicApp],
@@ -56,6 +58,7 @@ import { ConfigProvider } from '../providers/config/config';
     UserModalPage,
     DashboardPage,
     UserInfoDisplay,
+    UserSelectorComponent
   ],
   providers: [
     StatusBar,

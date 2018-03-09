@@ -1,0 +1,26 @@
+<!-- Generated template for the UserSelectorComponent component -->
+<div>
+	<ion-searchbar 
+    (ionInput)="filterList()" 
+    [(ngModel)]="searchstr" 
+    (keyup)="keyup($event)" 
+    (focusin)="engage($event)" 
+    placeholder="{{placeholder}}">
+    
+  </ion-searchbar>
+  <div class="dropdown" *ngIf="engaged">
+    <ion-list>
+      <button ion-item 
+        (click)="selectEntry($event, user)"
+        (keyup)="keyEntry($event, user)"
+        *ngFor="let user of users; let i = index"
+        [ngClass]="{selected: userSelected}"
+        [tabindex]="i+2">
+        {{ user.name }}<ion-badge item-end>{{ user.points }}</ion-badge>
+      </button>
+      <button *ngIf="users.length < 1" ion-button full (click)="createUser();">
+        Create this user
+      </button>
+    </ion-list>
+  </div>
+</div>
