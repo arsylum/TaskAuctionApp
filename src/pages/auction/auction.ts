@@ -139,4 +139,10 @@ export class AuctionPage {
       taskEditModal.present();
   }
 
+  addAssignee(e, user, task) {
+    console.log('adding that person: ', user);
+    console.log(e, task)
+    this.stateProvider.spontClaimUpdate(task, false, user.id);
+  }
+
 } 

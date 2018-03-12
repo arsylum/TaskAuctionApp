@@ -22,4 +22,10 @@ export class DinnerPage {
     const modal = this.modalCtrl.create(BidModalPage, { 'task' : task, 'type' : 'dinner' });
     modal.present(); 
   }
+
+  addAssignee(e, user, task) {
+    console.log('adding that person: ', user);
+    console.log(e, task)
+    this.stateProvider.submitDinnerAssign(task.id, user.id);
+  }
 }

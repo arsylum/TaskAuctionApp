@@ -22,6 +22,7 @@ export class UserSelectorComponent {
   @Input() placeholder: string;
   @Input() entryClickCallback: Function; 
   @Input() that: any;
+  @Input() task: any;
 
 
   constructor(
@@ -35,7 +36,7 @@ export class UserSelectorComponent {
   }
 
   // on focus
-  engage(e: FocusEvent) {
+  engage(e: any) {
   	var that =  this;
   	this.engaged = true;
   	this.container = e.target.parentElement.parentElement.parentElement;
@@ -78,7 +79,8 @@ export class UserSelectorComponent {
   }
 
   selectEntry(ev:any, user: any) {
-  	this.entryClickCallback.call(this.that, ev, user);
+    // console.log(this.task);
+  	this.entryClickCallback.call(this.that, ev, user, this.task);
 
     this.searchstr = '';
     this.engaged = false;

@@ -121,13 +121,6 @@ page-auction, page-dinner {
 	max-width: 50%;
 }
 
-.assignees {
-	white-space: normal;
-}
-.assignees ion-badge {
-	margin: .1em .1em 0 0;
-	font-size: .75em;
-}
 
 .points, .swank-points {
 	font-family: 'Roboto';
@@ -250,5 +243,36 @@ page-auction, page-dinner {
 		display: inline-block;
 		content: 'wurscht';
 		float: right;
+	}
+}
+
+.assign-list {
+	.item, .item-inner, .input-wrapper, .label {
+		overflow: visible;
+	}
+	.item {
+		contain: none;
+	}
+}
+
+.assignees {
+	white-space: normal;
+}
+.assignees ion-badge {
+	margin: .1em .1em 0 0;
+	font-size: .75em;
+	padding: 0.5em;
+	padding-bottom: 0;
+	button.button-md-danger {
+		margin: .1em;
+		font-size: .75em;
+		height: 1.5em;
+		width: 1.5em;
+		position: relative;
+		top: -.5em;
+		ion-badge {
+			margin: 0;
+
+		}
 	}
 }

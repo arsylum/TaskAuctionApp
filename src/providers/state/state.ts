@@ -83,7 +83,7 @@ export class StateProvider {
       } else { 
         this.refreshTimeout(); 
       }
-    }, 45000);
+    }, 4500000);
   }
 
   loading(msg?) {
@@ -356,6 +356,8 @@ export class StateProvider {
     }).done(data => { this.setState(data, this); });
   }  
 
+
+  // deprecated, do not use
   submitDinnerClaim(task, join: boolean) {
     this.loading();
     let action = (join ? 'dinner_join' : 'dinner_take');
@@ -366,25 +368,37 @@ export class StateProvider {
     }).done(data => { this.setState(data, this); });
 
   }
+  // for new assignment list mode
+  submitDinnerAssign(tid, uid) {
+    this.loading();
+    $.post(this.backEndUrl, {
+      action: 'dinner_join',
+      task_id: tid,
+      uid: uid
+    }).done(data => { this.setState(data, this); });
+  }
 
-  abandonDinner(task) {
+  abandonDinner(task, uid) {
+    console.log(task, uid);
+    if(uid === undefined) { uid = this.uid; }
     this.loading();
     $.post(this.backEndUrl, {
       action: 'dinner_bail',
       task_id: task.id,
-      uid: this.uid
+      uid: uid
     }).done(data => { this.setState(data, this); });
   }
 
-  spontClaim(task) { this.spontClaimUpdate(task, false);  }
-  spontDisclaim(task){ this.spontClaimUpdate(task,true); }
-  spontClaimUpdate(task, remove) {
+  spontClaim(task) { this.spontClaimUpdate(task, false, undefined);  }
+  spontDisclaim(task){ this.spontClaimUpdate(task,true, undefined); }
+  spontClaimUpdate(task, remove, uid) {
     let action = (remove ? 'spont_bail' : 'spont_take');
+    if (uid === undefined) { uid = this.uid; }
     this.loading();
     $.post(this.backEndUrl, {
       action: action,
       task_id: task.id,
-      uid: this.uid
+      uid: uid
     }).done(data => { this.setState(data, this); });
   }
 
