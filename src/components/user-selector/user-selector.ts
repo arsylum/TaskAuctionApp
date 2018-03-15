@@ -41,7 +41,7 @@ export class UserSelectorComponent {
   	this.engaged = true;
   	this.container = e.target.parentElement.parentElement.parentElement;
   	e.target.tabIndex = 1;
-  	document.addEventListener('mousedown',function clickOut(e: MouseEvent) {
+  	document.addEventListener('mousedown',function clickOut(e: any) {
 
   		if(e.path.indexOf(that.container) < 0) {
   			document.removeEventListener('mousedown', clickOut);
@@ -55,7 +55,8 @@ export class UserSelectorComponent {
   	if(e.keyCode === 13 && this.users.length > 0) {
   		this.selectEntry(e,this.users[0]);
   		this.engaged = false;
-  		document.activeElement.blur();
+  		let aE = document.activeElement;
+      if(aE instanceof HTMLElement) { aE.blur(); }
   	}
   }
 

@@ -138,7 +138,7 @@ export class BidModalPage {
     });
     alert.present();
     
-    this.stateProvider.abandonDinner(task);
+    this.stateProvider.abandonDinner(task, undefined);
     this.viewCtrl.dismiss();
   }
 

@@ -446,12 +446,32 @@ function dinner_join() {
 	global $db, $msg;
 
 	$tid = intval($_POST['task_id']);
-	if(!$db->query("INSERT INTO `dinners` (`uid`, `task_id`) VALUES (" . intval($_POST['uid']) . ", " . $tid . ");")) { die($db->error); }
-	$msg['suc'][] = randomMsg(array(
-		'Dream team cream!',
-		'Teamwork unlocks supper powers!',
-		'Taste the power of friendship!'
-	));
+
+	$res = $db->query("SELECT `uid` FROM `dinners` WHERE `uid` = " . intval($_POST['uid']) . " AND `task_id` = " . $tid . ";");
+	if($res->num_rows > 0) {
+		$msg['err'][] = 'No cooky twicey!!';
+	} else {
+
+
+		if(!$db->query("INSERT INTO `dinners` (`uid`, `task_id`) VALUES (" . intval($_POST['uid']) . ", " . $tid . ");")) { die($db->error); }
+
+		$msg['suc'][] = randomMsg(array(
+			'Be sure to use the food in need of consumption!',
+			'D-ddddd-d licious!',
+			'I hope it\'s gonna be buns',
+			'Gotta feed them all!',
+			'Saliva of the phattest!',
+			'Beat the tofu!',
+			'May the sauce be with you!',
+			'Cook dat mett!'
+		));
+
+	// $msg['suc'][] = randomMsg(array(
+	// 	'Dream team cream!',
+	// 	'Teamwork unlocks supper powers!',
+	// 	'Taste the power of friendship!'
+	// ));
+	}
 	return_state();
 }
 
