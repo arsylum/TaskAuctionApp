@@ -17,6 +17,7 @@ if(!isset($_POST['action'])) { die('Invalid backend call!'); }
 require('./db.conf.php');
 $db = new mysqli($creds['host'], $creds['user'], $creds['pass'], $creds['base']);
 if ($db->connect_error) { die('Connect Error (' . $db->connect_errno . ') ' . $db->connect_error); }
+$db->set_charset("utf8mb4"); // force the same encoding as in our sample sql
 
 $msg = array('suc' => array(), 'err' => array());
 $settings = array();
