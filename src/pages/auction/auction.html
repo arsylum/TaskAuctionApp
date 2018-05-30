@@ -64,16 +64,21 @@
       <ion-item-divider>Feeling spontaneous?
         <ion-badge item-end color="secondary" class="points"><ion-icon name="add-circle"></ion-icon> {{this.stateProvider.user_current_spont_gain}}</ion-badge>
       </ion-item-divider>
-<!--       <div ion-item
-      *ngFor="let task of this.stateProvider.tasks.spontaneous">
-      (click)="taskClicked($event, task)"> -->
-        <!-- <h3>{{task.name}} <ion-badge color="secondary" class="points">{{task.fixed_value}}</ion-badge></h3> -->
+
+    <!-- normal list, display in maintenance mode -->
+    <div *ngIf="this.stateProvider.settings.auctionState == 2">
+    <div ion-item
+      *ngFor="let task of this.stateProvider.tasks.spontaneous"
+      (click)="taskClicked($event, task)">
+        <h3>{{task.name}} <ion-badge color="secondary" class="points">{{task.fixed_value}}</ion-badge></h3>
         <!-- <user-selector placeholder="Add Assignee" [entryClickCallback]="addAssignee" [that]="this"></user-selector> -->
         <!-- <p item-end class="assignees"><ion-badge color="light" *ngFor="let winner of task.winners" (click)="this.stateProvider.selectUser(winner)">{{ this.stateProvider.getUserName(winner) }}</ion-badge></p> -->
        
-      <!-- </div> -->
+    </div>
+  </div>
     
-
+  <!-- new name assignement interface -->
+  <div *ngIf="this.stateProvider.settings.auctionState != 2">
     <div ion-item *ngFor="let task of stateProvider.tasks.spontaneous">  <!-- (click)="taskClicked($event, task)"> -->
       <h3>{{task.name}} <ion-badge color="secondary" class="points">{{task.fixed_value}}</ion-badge></h3>
       
@@ -100,7 +105,7 @@
 
       </ion-list> -->
       
-    
+    </div>
     </div>
     </div>
 
