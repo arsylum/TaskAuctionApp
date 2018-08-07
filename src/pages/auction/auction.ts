@@ -90,8 +90,10 @@ export class AuctionPage {
   presentTaskCompletionPrompt(event, task) {
     const alert = this.alertCtrl.create({
       title: task.name,
-      subTitle: task.description,
-      message: 'What\'s the status of this task?',
+      // subTitle: task.description,
+      // message: 'What\'s the status of this task?',
+      subTitle: 'What\'s the status of this task?',
+      message: task.description,
       buttons: [
         {
           text: 'Done',

@@ -34,6 +34,15 @@ page-auction {
 	}
 }
 
+.alert-md {
+	.alert-wrapper {
+		max-width: 400px;
+	}
+	.alert-message {
+		max-height: 6em;
+	}
+}
+
 #spontasks {
 	// button {
 	// 	background: #dafffd;
