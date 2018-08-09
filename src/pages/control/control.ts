@@ -23,6 +23,7 @@ export class ControlPage {
     this.settingsForm = formBuilder.group({
       closingTime : [stateProvider.settings.closing_time, Validators.pattern('(Mon|Tue|Wed|Thu|Fri|Sat|Sun) ([01][0-9]|2[0-3]):[0-5][0-9]')],
       dinnerValue : [stateProvider.settings.dinner_value, Validators.pattern('[0-9]+')],
+      dogValue : [stateProvider.settings.dog_value, Validators.pattern('[0-9]+')],
     });
   }
 

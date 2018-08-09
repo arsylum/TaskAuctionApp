@@ -83,7 +83,7 @@ export class StateProvider {
       } else { 
         this.refreshTimeout(); 
       }
-    }, 4500000);
+    }, 45000);
   }
 
   loading(msg?) {
@@ -153,7 +153,7 @@ export class StateProvider {
       that.loader.dismiss(); 
     }
 
-    // console.log('state updated: ', that); // very handy for state model inspection
+    console.log('state updated: ', that); // very handy for state model inspection
     that.refreshTimeout();
   }
 
@@ -389,6 +389,25 @@ export class StateProvider {
     }).done(data => { this.setState(data, this); });
   }
 
+  takeDog(tid, uid) {
+    this.loading();
+    $.post(this.backEndUrl, {
+      action: 'dog_join',
+      task_id: tid,
+      uid: uid
+    }).done(data => { this.setState(data, this); });
+  }
+  abandonDog(task,uid) {
+    // console.log(task, uid);
+    if(uid === undefined) { uid = this.uid; }
+    this.loading();
+    $.post(this.backEndUrl, {
+      action: 'dog_bail',
+      task_id: task.id,
+      uid: uid
+    }).done(data => { this.setState(data, this); });
+  }
+
   spontClaim(task) { this.spontClaimUpdate(task, false, undefined);  }
   spontDisclaim(task){ this.spontClaimUpdate(task,true, undefined); }
   spontClaimUpdate(task, remove, uid) {
@@ -425,7 +444,8 @@ export class StateProvider {
     $.post(this.backEndUrl, {
       action: 'update_settings',
       closing_time: values.closingTime,
-      dinner_value: values.dinnerValue
+      dinner_value: values.dinnerValue,
+      dog_value: values.dogValue
     }).done(data => { this.setState(data, this); });
   }
 }

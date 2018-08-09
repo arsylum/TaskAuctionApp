@@ -1,0 +1,67 @@
+<!--
+  Generated template for the DogPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+      </button>
+
+      <user-info-display></user-info-display>
+
+    <ion-title>Dawg</ion-title>
+
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+    <!-- <ion-card> -->
+      <p>
+      <!-- <ion-card-header>Pooch me if you can!</ion-card-header> -->
+      <!-- <ion-card-content> -->
+        <ion-icon name="heart"></ion-icon>  Pooch me if you can! 
+        Every walk is worth <ion-badge color="secondary" class="points">{{this.stateProvider.settings.dog_value}}</ion-badge>. Points are split evenly amongst poochers.
+      <!-- </ion-card-content> -->
+    <!-- </ion-card> -->
+      </p>
+
+    <ion-item-group class="assign-list">
+    <div *ngFor="let task of stateProvider.tasks.dog; let i = index">  <!-- (click)="taskClicked($event, task)"> -->
+      <h2 *ngIf="i%4 === 0">{{task.name.split(' ')[0]}}</h2>
+      <ion-card>
+        <ion-card-header>{{task.name.split(' ')[1]}}</ion-card-header>
+      <!-- <h3>{{task.name}}</h3> -->
+      
+      
+
+      <ion-list inset>
+        <ion-badge *ngIf="task.winners.length < 1" color="danger">Impending sorrow!</ion-badge>
+      <div item-content class="assignees">
+        <ion-badge color="light" *ngFor="let winner of task.winners">
+         <!-- (click)="this.stateProvider.selectUser(winner)"> -->
+         {{ this.stateProvider.getUserName(winner) }}
+          <button ion-button item-end  icon-only color="danger" round (click)="this.stateProvider.abandonDog(task, winner)">
+            <ion-icon name="close"></ion-icon>
+          </button>
+
+        </ion-badge>
+      </div>
+    </ion-list>
+
+
+      <user-selector placeholder="Add Assignee" [entryClickCallback]="addAssignee" [that]="this" [task]="task"></user-selector>
+<!--       <ion-list inset>
+        <div ion-item *ngFor="let winner of task.winners">{{this.stateProvider.getUserName(winner) }}</div>
+
+      </ion-list> -->
+      
+    </ion-card>
+    </div>
+  </ion-item-group>
+
+</ion-content>

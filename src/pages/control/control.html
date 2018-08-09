@@ -46,6 +46,11 @@
           <ion-label floating>Dinner Value</ion-label>
           <ion-input formControlName="dinnerValue" type="number"></ion-input>
         </ion-item>
+
+        <ion-item>
+          <ion-label floating>Dog Walk Value</ion-label>
+          <ion-input formControlName="dogValue" type="number"></ion-input>
+        </ion-item>
       </form>
       <button ion-button secondary [disabled]="!settingsForm.valid" type="submit" (click)="onSubmit()">Submit</button>
     </ion-card-content>

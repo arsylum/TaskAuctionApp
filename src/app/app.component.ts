@@ -7,6 +7,7 @@ import { ControlPage } from '../pages/control/control';
 import { AuctionPage } from '../pages/auction/auction';
 import { DinnerPage } from '../pages/dinner/dinner';
 import { DashboardPage } from '../pages/dashboard/dashboard';
+import { DogPage } from '../pages/dog/dog';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class MyApp {
     this.pages = [
       { title: 'Auction', component: AuctionPage },
       { title: 'Dinner', component: DinnerPage },
+      { title: 'Dog', component: DogPage },
       { title: 'Control Room', component: ControlPage },
       { title: 'Dashboard', component: DashboardPage}
     ];

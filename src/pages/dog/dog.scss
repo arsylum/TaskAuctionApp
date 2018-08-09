@@ -1,0 +1,17 @@
+page-dog {
+	.assign-list {
+		display: flex;
+		flex-flow: row;
+		flex-wrap: wrap;
+		align-items: flex-end;
+		&>div {
+			flex: 1 1 25%;
+			// max-width: 350px;
+			width: 25%;
+			min-width: 200px;
+		}
+		ion-card {
+			overflow: visible;
+		}
+	}
+}

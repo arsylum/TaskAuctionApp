@@ -6,6 +6,9 @@
 
 date_default_timezone_set('Europe/Berlin');
 
+//https://sittenkammer.de/taskauction/backend/slingshot.php?unlock=cakecakecakecakecakeckaekcakeckakeckakcekackekackeackecz
+
+
 
 // TODO remove this shit for production <- HAHA
 header("Access-Control-Allow-Origin: *");
@@ -87,6 +90,8 @@ switch($_POST['action']) {
 	case 'dinner_take':  dinner_take(); break;
 	case 'dinner_join': dinner_join(); break;
 	case 'dinner_bail': dinner_bail(); break;
+	case 'dog_join': dog_join(); break;
+	case 'dog_bail': dog_bail(); break;
 	case 'spont_take': spont_take(); break;
 	case 'spont_bail': spont_bail(); break;
 	case 'add_transaction': add_transaction(); break;
@@ -133,7 +138,7 @@ function retrieve_state($include_uidMap = false) {
 	/// TASKS //
 	///////////
 	if ($res = $db->query("SELECT * FROM `tasks`", MYSQLI_USE_RESULT)) {
-		$state['tasks'] = array('auction' => array(), 'spontaneous' => array(), 'dinner' => array(), 'deleted' => array());
+		$state['tasks'] = array('auction' => array(), 'spontaneous' => array(), 'dinner' => array(), 'dog' => array(), 'deleted' => array());
 		while($row = $res->fetch_object()) {
 			if($row->status !== 'deleted') {
 				array_push($state['tasks'][$row->type], array(
@@ -214,7 +219,6 @@ function retrieve_state($include_uidMap = false) {
 			$i = $n;
 			while($state['tasks']['spontaneous'][--$i]['id'] !== $tid && $i >= 0) {}
 			if($i>=0) { $state['tasks']['spontaneous'][$i]['winners'][] = intval($row->uid); }
-
 		}
 		$res->close();
 	}
@@ -229,7 +233,19 @@ function retrieve_state($include_uidMap = false) {
 			$i = $n;
 			while($state['tasks']['dinner'][--$i]['id'] !== $tid && $i >= 0) {}
 			$state['tasks']['dinner'][$i]['winners'][] = intval($row->uid);
-
+		}
+		$res->close();
+	}
+	///////////
+	/// Dog //
+	/////////
+	if ($res = $db->query("SELECT * FROM `dogs`")) {
+		$n = count($state['tasks']['dinner']);
+		while($row = $res->fetch_object()) {
+			$tid = intval($row->task_id);
+			$i = $n;
+			while($state['tasks']['dog'][--$i]['id'] !== $tid && $i >= 0) {}
+			$state['tasks']['dog'][$i]['winners'][] = intval($row->uid);
 		}
 		$res->close();
 	}
@@ -441,10 +457,11 @@ function new_bid() {
 			'Och och och',
 			'Mmeeaooowww',
 			'Task\'s what she said!',
-			'Remember to take a 10-15 minute break every hour, even if you don\'t think you need it',
+			'Remember to take a constant 10-15 minute break, even if you don\'t think you need it',
 			'So many tasks so little time',
 			'Squeeze those tasks!',
-			'Essen!'
+			'Essen!',
+			'WOW! Your hair is so long!'
 		));
 	}
 	return_state();
@@ -542,6 +559,56 @@ function dinner_bail() {
 	return_state();
 }
 
+
+
+
+function dog_join() {
+	global $db, $msg;
+
+	$tid = intval($_POST['task_id']);
+
+	$res = $db->query("SELECT `uid` FROM `dogs` WHERE `uid` = " . intval($_POST['uid']) . " AND `task_id` = " . $tid . ";");
+	if($res->num_rows > 0) {
+		$msg['err'][] = 'WTF? You are already doing that!';
+	} else {
+
+
+		if(!$db->query("INSERT INTO `dogs` (`uid`, `task_id`) VALUES (" . intval($_POST['uid']) . ", " . $tid . ");")) { die($db->error); }
+
+		$msg['suc'][] = randomMsg(array(
+			'Woofff!',
+			'Leash me up, baby!',
+			'M-M-M-Massive Satisfaction!',
+			'Poops gotta get out!',
+			'Gotta pee them all!',
+			'Dog loves you!',
+			'It\'s dangerous to go alone. Dog is on your side!',
+			'May the pooch be with you!'
+		));
+	}
+	return_state();
+}
+
+function dog_bail() {
+	global $db, $msg;
+	if(!$db->query("DELETE FROM `dogs` WHERE `task_id` = ". intval($_POST['task_id']) . " AND `uid` = " . intval($_POST['uid']) . ";")) {
+		die($db->error);
+	}
+	$msg['err'][] = randomMsg(array(
+		'Whyyy are you abbandoning me? *whimper*',
+		'Accidents happen',
+		'Not poochy.',
+		'Sad dog is sad.',
+		'No fun for you!',
+		'The dog doesn\'t walk itself, you know?',
+		'Karma -25',
+		'Brutal',
+		'Don\'t screw the pooch man!'
+	));
+	return_state();
+}
+
+
 function spont_take() {
 	global $db, $msg;
 
@@ -553,7 +620,11 @@ function spont_take() {
 		'You made the world a better place.',
 		'That was very spontaneous!',
 		'That was very spontyamorous!',
-		'Very ethical!'
+		'Very ethical!',
+		'Karma +25',
+		'You are an angel',
+		'You are a fishing rod',
+		'Vorbildlich!'
 	));
 	return_state();
 }
@@ -570,7 +641,8 @@ function spont_bail() {
 		'Traitor!',
 		'We expected more from you.',
 		'More sponge than spontaneous..',
-		'You were just in for the points anyway.'
+		'You were just in for the points anyway.',
+		'Your hair is too long.'
 	));
 	return_state();
 }
@@ -636,6 +708,7 @@ function update_settings() {
 
 
 	if(!$db->query("UPDATE `settings` SET `value` = '" . intval($_POST['dinner_value']) . "' WHERE `key` = 'dinner_value';")) { die($db->error); }
+	if(!$db->query("UPDATE `settings` SET `value` = '" . intval($_POST['dog_value']) . "' WHERE `key` = 'dog_value';")) { die($db->error); }
 	if(!$db->query("UPDATE `settings` SET `value` = '" . $db->real_escape_string($_POST['closing_time']) . "' WHERE `key` = 'closing_time';")) { die($db->error); }
 
 	$msg['suc'][] = 'Should be fine!';
@@ -664,7 +737,8 @@ function iterate_to_next_week() {
 		'A true master!',
 		'Like a baowzz!',
 		'Epic',
-		'The task is happy!'
+		'The task is happy!',
+		'Massive Satisfaction!'
 	);
 	$negatives = array(
 		'Nooooooooouu!',
@@ -712,6 +786,36 @@ function iterate_to_next_week() {
 		}
 	}
 
+	// dog
+	$dogval = intval($state['settings']['dog_value']);
+	foreach($state['tasks']['dog'] as $key => $dogwalk) {
+		$dogwalkers = count($dogwalk['winners']);
+		if($dogwalkers > 0) {
+			foreach($dogwalk['winners'] as $k => $winner) {
+				if(!in_array($winner, $uids)) { $uids[] = $winner; }
+				$extra = '';
+				if($dogwalkers > 1) {
+					$extra .= ' with ';
+					$comrades = array();
+					for($i=0;$i<$dogwalkers;$i++) {
+						if($i !== $k) { 
+							$cui = $state['uid_map'][$dogwalk['winners'][$i]];
+							$comrades[] = $state['users'][$cui]['name'];
+						}
+					} 
+					$i = count($comrades);
+					if($i > 1) {
+						while(--$i) { $extra .= $comrades[$i] . ', '; }
+						$extra = substr($extra, 0, -2) . ' and ' . $comrades[0];
+					} else {
+						$extra .= $comrades[0];
+					}
+				}
+				createTransaction($winner, $dogwalk['id'], ($dogval / $dogwalkers), 'Walked the dog on ' . $dogwalk['name'] . $extra . '. ' . randomMsg($positives));
+			}
+		}
+	}
+
 	// spontaneous
 	foreach($state['tasks']['spontaneous'] as $key => $spont) {
 		if(count($spont['winners']) > 0) {
@@ -729,6 +833,8 @@ function iterate_to_next_week() {
 	if(!$db->query("DELETE FROM `bids`;")) { die($db->error); }
 	// drop all the dinner claims
 	if(!$db->query("DELETE FROM `dinners`;")) { die($db->error); }
+	// drop all the dogwalks
+	if(!$db->query("DELETE FROM `dogs`;")) { die($db->error); }
 	// drop all the sponties
 	if(!$db->query("DELETE FROM `sponties`;")) { die($db->error); }
 
@@ -822,3 +928,5 @@ function return_dashboard() {
 	print(json_encode($dashboard)); 
   exit;
 }
+
+

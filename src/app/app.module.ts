@@ -17,6 +17,8 @@ import { UserModalPage } from '../pages/user-modal/user-modal';
 import { UserModalPageModule } from '../pages/user-modal/user-modal.module';
 import { DashboardPage } from '../pages/dashboard/dashboard';
 import { DashboardPageModule } from '../pages/dashboard/dashboard.module';
+import { DogPage } from '../pages/dog/dog';
+import { DogPageModule } from '../pages/dog/dog.module';
 
 import { UserInfoDisplay, UserInfoDisplayModule } from '../components/userInfoDisplay/userInfoDisplay';
 import { UserSelectorComponent, UserSelectorComponentModule } from '../components/user-selector/user-selector';
@@ -46,6 +48,7 @@ import { ConfigProvider } from '../providers/config/config';
     UserInfoDisplayModule,
     UserSelectorComponentModule,
     ControlPageModule,
+    DogPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -53,6 +56,7 @@ import { ConfigProvider } from '../providers/config/config';
     ControlPage,
     AuctionPage,
     DinnerPage,
+    DogPage,
     BidModalPage,
     TaskEditModalPage,
     UserModalPage,

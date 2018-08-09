@@ -1,8 +1,8 @@
 {
   "name": "TaskAuction",
-  "app_id": "gs.x.tasks",
-  "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "pro_id": "gs.x.tasks"
 }
