@@ -55,18 +55,18 @@ export class ControlPage {
   finishPlenumMode() {
     const alert = this.alertCtrl.create({
       title: 'Iterate week',
-      subTitle: 'Finish the meeting',
+      subTitle: 'Write history.',
       message: 'Calculate all the points',
       buttons: [
         {
-          text: 'Go for it!',
+          text: 'I was born for this!',
           cssClass: 'button-md my-alert-button done',
           handler: data => { 
-            this.confirmDinners(); 
+            this.confirmFinishPlenumMode(); 
           }
         },
         {
-          text: 'Hold on',
+          text: 'Not yet',
           cssClass: 'button-md my-alert-button failed',
         }
       ]
@@ -121,18 +121,18 @@ export class ControlPage {
   confirmFinishPlenumMode() {
     const alert = this.alertCtrl.create({
       title: 'Are you sure?',
-      subTitle: 'This step is non-reversible.',
-      message: 'Missuse will load the hatred of the catministrator upon you!',
+      subTitle: 'This action is non-reversible!',
+      message: 'All tasks, dinners and dog walks will be considered correct as listed and points will be given accordingly. If you did not check them yet, now might be a good time.',
       buttons: [
         {
-          text: 'I am not afraid!',
+          text: 'I triple-checked it all!',
           cssClass: 'button-md my-alert-button done',
           handler: data => { 
             this.finalConfirmFinishPlenumMode(); 
           }
         },
         {
-          text: 'okaaay, nevermind',
+          text: 'ooops, hold on',
           cssClass: 'button-md my-alert-button failed',
         }
       ]
@@ -142,9 +142,9 @@ export class ControlPage {
 
   finalConfirmFinishPlenumMode() {
     const alert = this.alertCtrl.create({
-      title: 'Just kidding',
-      subTitle: 'That previous step was still reversible.',
-      message: 'But this one ain\'t, I\'m seriously serious!',
+      title: 'Ready',
+      subTitle: 'This confirm is here for your annoyance only.',
+      message: 'Nothing happened yet. If you do not fear the wrath of the catministrator, you may commence the algorithm.',
       buttons: [
         {
           text: 'Crunch data!',
@@ -154,7 +154,7 @@ export class ControlPage {
           }
         },
         {
-          text: 'Whateva, I got bored...',
+          text: 'I\'m not into that kind of thing...',
           cssClass: 'button-md my-alert-button failed',
         }
       ]
