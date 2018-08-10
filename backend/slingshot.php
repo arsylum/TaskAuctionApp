@@ -244,7 +244,7 @@ function retrieve_state($include_uidMap = false) {
 		while($row = $res->fetch_object()) {
 			$tid = intval($row->task_id);
 			$i = $n;
-			while($state['tasks']['dog'][--$i]['id'] !== $tid && $i >= 0) {}
+			while(intval($state['tasks']['dog'][--$i]['id']) !== $tid && $i >= 1) {}
 			$state['tasks']['dog'][$i]['winners'][] = intval($row->uid);
 		}
 		$res->close();
