@@ -240,11 +240,11 @@ function retrieve_state($include_uidMap = false) {
 	/// Dog //
 	/////////
 	if ($res = $db->query("SELECT * FROM `dogs`")) {
-		$n = count($state['tasks']['dinner']);
+		$n = count($state['tasks']['dog']);
 		while($row = $res->fetch_object()) {
 			$tid = intval($row->task_id);
 			$i = $n;
-			while($state['tasks']['dog'][--$i]['id'] !== $tid && $i >= 0) {}
+			while(intval($state['tasks']['dog'][--$i]['id']) !== $tid && $i >= 1) {}
 			$state['tasks']['dog'][$i]['winners'][] = intval($row->uid);
 		}
 		$res->close();
