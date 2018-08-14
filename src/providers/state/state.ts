@@ -18,6 +18,7 @@ export class StateProvider {
   public user_current_auction_gain: number;
   public user_current_spont_gain: number;
   public user_current_dinner_gain: number;
+  public user_current_dog_gain: number;
 	private fireWhenReady: any;
   private loader;
   private refreshT;
@@ -40,6 +41,7 @@ export class StateProvider {
     this.user_current_auction_gain = 0;
     this.user_current_spont_gain = 0;
     this.user_current_dinner_gain = 0;
+    this.user_current_dog_gain = 0;
 
     this.getState();
     // this.spawn_flake(); // WiNteR YaY!
@@ -202,7 +204,8 @@ export class StateProvider {
     if(uid === undefined) { uid = this.uid; }
     let auctionBal = 0,
         spontBal = 0,
-        dinnerBal = 0, i, j, p;
+        dinnerBal = 0,
+        dogBal = 0, i, j, p;
         
     i = this.tasks.auction.length;
     while(i--) { 
@@ -237,11 +240,23 @@ export class StateProvider {
       }
     }
 
+    i = this.tasks.dog.length;
+    while(i--) {
+      j = this.tasks.dog[i].winners.length;
+      p = parseInt(this.settings.dog_value) / j; 
+      while(j--) {
+        if(this.tasks.dog[i].winners[j] === uid) {
+          dogBal += p;
+        }
+      }
+    }
+
     this.user_current_auction_gain = auctionBal;
     this.user_current_spont_gain = spontBal;
     this.user_current_dinner_gain = dinnerBal;
+    this.user_current_dog_gain = dogBal;
 
-    return auctionBal + spontBal + dinnerBal;
+    return auctionBal + spontBal + dinnerBal + dogBal;
   }
 
   addUser(name: string, callback: Function) {
@@ -398,7 +413,7 @@ export class StateProvider {
     }).done(data => { this.setState(data, this); });
   }
   abandonDog(task,uid) {
-    // console.log(task, uid);
+    console.log(task, uid);
     if(uid === undefined) { uid = this.uid; }
     this.loading();
     $.post(this.backEndUrl, {

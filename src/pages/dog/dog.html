@@ -25,9 +25,17 @@
       <!-- <ion-card-header>Pooch me if you can!</ion-card-header> -->
       <!-- <ion-card-content> -->
         <ion-icon name="heart"></ion-icon>  Pooch me if you can! 
-        Every walk is worth <ion-badge color="secondary" class="points">{{this.stateProvider.settings.dog_value}}</ion-badge>. Points are split evenly amongst poochers.
+        Every walk is worth <ion-badge color="secondary" class="points">{{this.stateProvider.settings.dog_value}}</ion-badge>. Points are split evenly amongst poochers. Your current dog walks are worth
+        <ion-badge item-end color="secondary" class="points"><ion-icon name="add-circle"></ion-icon> {{this.stateProvider.user_current_dog_gain}}</ion-badge>
       <!-- </ion-card-content> -->
     <!-- </ion-card> -->
+      </p>
+      
+      <p><i><b>Walking Times:</b></i> 
+        <b>Morning:</b>&nbsp;8:00&nbsp;-&nbsp;9:30
+        <b>Noon:</b>&nbsp;12:00&nbsp;-&nbsp;15:00
+        <b>Evening:</b>&nbsp;21:00&nbsp;-&nbsp;open end
+        <b>Extra:</b>&nbsp;anytime
       </p>
 
     <ion-item-group class="assign-list">
