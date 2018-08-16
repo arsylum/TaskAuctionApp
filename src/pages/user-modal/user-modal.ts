@@ -27,6 +27,9 @@ export class UserModalPage {
     // this.searchstr = this.stateProvider.user.name;
     // this.filterList();
     this.userSelected = true;
+    console.log(this.stateProvider.user);
+    // if(this.)
+    this.stateProvider.getUserTransactions();
   }
 
 
@@ -34,6 +37,7 @@ export class UserModalPage {
     this.stateProvider.uid = parseInt(user.id);
     this.stateProvider.selectUser();
     this.userSelected = true;
+    this.stateProvider.getUserTransactions();
     // this.users = [this.stateProvider.user];
   }
   

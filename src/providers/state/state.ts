@@ -14,6 +14,7 @@ export class StateProvider {
 	public users: any;
 	public user: any;
 	public uid: number;
+  public transactions: any; // [number uid: array]
   public user_current_gain: number;
   public user_current_auction_gain: number;
   public user_current_spont_gain: number;
@@ -33,6 +34,7 @@ export class StateProvider {
     this.settings = {};
     this.user = { name: '', favtasks: []};
     this.uid = parseInt(localStorage.getItem('uid'));
+    this.transactions = [];
     this.fireWhenReady = [];
     this.backEndUrl = this.configProvider.backEndUrl;
     this.refreshT = 0;
@@ -185,6 +187,21 @@ export class StateProvider {
       this.user_current_gain = this.getUserCurrentGain();
   		localStorage.setItem('uid', this.uid.toString());
   	}
+  }
+  getUserTransactions(uid?:number) {
+    if(uid === undefined) { uid = this.uid; }
+    if(isNaN(uid)) { return false; }
+    if(this.transactions[uid] !== undefined) { return true; }
+    
+    this.transactions[uid] = [];
+    $.post(this.backEndUrl, {
+      action: 'get_transactions',
+      uid: this.uid
+    }).done(data => { 
+      // console.log(data);
+      this.transactions[uid] = JSON.parse(data);
+      // console.log(this);
+    });
   }
 
   getUser(id) {

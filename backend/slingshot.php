@@ -78,6 +78,7 @@ $settings = array();
 
 switch($_POST['action']) {
 	case 'get_state': return_state(); break;
+	case 'get_transactions': return_transactions(); break;
 	case 'update_auctionState': update_auctionState(); break;
 	case 'add_user': add_user(); break;
 	case 'add_task': add_task(); break;
@@ -250,27 +251,6 @@ function retrieve_state($include_uidMap = false) {
 		$res->close();
 	}
 
-	////////////////////
-	/// Transactions //
-	//////////////////
-	if ($res = $db->query("SELECT * FROM `transactions` ORDER BY `time` DESC;", MYSQLI_USE_RESULT)) {
-		while($row = $res->fetch_object()) {
-			$uid = intval($row->uid);
-			if(isset($uid_map[$uid])) {
-				// var_dump($row->ip);
-				$state['users'][$uid_map[$uid]]['transactions'][] = array(
-					'id' => intval($row->id),
-					'task_id' => $row->task_id,
-					'points' => floatval($row->points),
-					'comment' => $row->comment,
-					'ip' => long2ip(intval($row->ip)),
-					'time' => $row->time
-				);
-			}
-		}
-	    $res->close();
-	}
-
 	////////////////
 	/// Settings //
 	//////////////
@@ -315,6 +295,36 @@ function getAuctionState() {
 		} else { $auction_state = 1; }
 	}
     return $auction_state;
+}
+
+function return_transactions() {
+	////////////////////
+	/// Transactions //
+	//////////////////
+	global $db;
+
+	$uid = intval($_POST['uid']);
+	$transactions = array();
+
+	if ($res = $db->query("SELECT * FROM `transactions` WHERE `uid` = " . $uid . " ORDER BY `time` DESC;", MYSQLI_USE_RESULT)) {
+		while($row = $res->fetch_object()) {
+			// $uid = intval($row->uid);
+
+			$transactions[] = array(
+				'id' => intval($row->id),
+				'task_id' => $row->task_id,
+				'points' => floatval($row->points),
+				'comment' => $row->comment,
+				'ip' => long2ip(intval($row->ip)),
+				'time' => $row->time
+			);
+		}
+	    $res->close();
+	}
+
+
+	print(json_encode($transactions));
+	exit;
 }
 
 function getTasksAveragePoints($tid) {
@@ -451,7 +461,7 @@ function new_bid() {
 			'Rock that Zipfel!',
 			'Task time!',
 			'Leave some tasks for the rest of us, ok?',
-			'One taks a day keeps the chaos at bay!',
+			'One task a day keeps the chaos at bay!',
 			'A task is a task is a task',
 			'Everyone has a price. Every task does too!',
 			'Och och och',

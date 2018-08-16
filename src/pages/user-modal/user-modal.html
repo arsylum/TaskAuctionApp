@@ -75,7 +75,7 @@
   </ion-card-header>
   <ion-card-content>
     <ion-item-group>
-      <ion-item *ngFor="let transaction of this.stateProvider.user.transactions">
+      <ion-item *ngFor="let transaction of this.stateProvider.transactions[this.stateProvider.uid]">
         <ion-badge color="secondary" class="points" *ngIf="transaction.points > 0">
           <ion-icon name="add"></ion-icon> {{transaction.points}}
         </ion-badge>
