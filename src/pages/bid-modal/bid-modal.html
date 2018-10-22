@@ -55,10 +55,13 @@
     <h2 *ngIf="type == 'dinner'">You are cooking on this day! Make a feast!</h2>
   </ion-item>
   
+  <ion-item *ngIf="type == 'auction' && !task.bid">
+    <ion-label *ngIf="type == 'auction' && !task.bid">My initial offer</ion-label>
+    <ion-input *ngIf="type == 'auction' && !task.bid" max="{{ (task.bid - 1) }}" type="number" placeholder="nice price" [(ngModel)]="inputs.bid1" class="points"></ion-input>
+  </ion-item>
   <ion-item>
-    <ion-label *ngIf="type == 'auction' && task.bid">My minimal offer is</ion-label>
-    <ion-label *ngIf="type == 'auction' && !task.bid">My initial offer is</ion-label>
-    <ion-input *ngIf="type == 'auction'" max="{{ (task.bid - 1) }}" type="number" placeholder="Your Bid" [(ngModel)]="inputs.bid" class="points"></ion-input>
+    <ion-label *ngIf="type == 'auction'">My minimal offer</ion-label>
+    <ion-input *ngIf="type == 'auction'" max="{{ (task.bid - 1) }}" type="number" placeholder="competitive price" [(ngModel)]="inputs.bid" class="points"></ion-input>
 
     <button *ngIf="type == 'auction'" ion-button item-end (click)="submitAuctionBid($event)">
       Place Bid

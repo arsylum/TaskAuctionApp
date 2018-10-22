@@ -25,7 +25,7 @@ export class BidModalPage {
     this.task = navParams.get('task');
     this.type = navParams.get('type');
     this.stateProvider = stateProvider;
-    this.inputs = { bid: (this.task.bid ? (this.task.bid - 1) : '') };
+    this.inputs = { bid: (this.task.bid ? (this.task.bid - 1) : ''), bid1: Math.round(this.task.avg_value * 1.5) };
 
     if(!this.stateProvider.isValidUser()) {
       const userModal = this.modalCtrl.create(UserModalPage, {});
@@ -34,11 +34,22 @@ export class BidModalPage {
   }
 
   submitAuctionBid(event) {
+    let isInitial = this.task.bid === undefined;
+    let errormsg = null;
     if(this.inputs.bid == ''
     || parseInt(this.stateProvider.settings.auctionState) !== 0
     ||(this.task.bid !== undefined && parseInt(this.task.bid) <= parseInt(this.inputs.bid))) {
+      errormsg = 'Try harder (that\'s what she said)';
+    }
+    if(isInitial && (this.inputs.bid1 === undefined || this.inputs.bid1 === null || this.inputs.bid1 === '')) {
+        errormsg = 'Without an initial offer we wont come ins Geschäft!';
+    }
+    if(isInitial && (parseInt(this.inputs.bid1) < parseInt(this.inputs.bid))) {
+        errormsg = 'You got it all upside down, darling!';
+    }
+    if(errormsg !== null) {
       let toast = this.toastCtrl.create({
-        message: 'Try harder (that\'s what she said)',
+        message: errormsg,
         duration: 2000,
         position: 'top',
         cssClass: 'error'
@@ -50,7 +61,22 @@ export class BidModalPage {
     let newTask = this.task;
     newTask.bid = this.inputs.bid;
 
-    this.stateProvider.newAuctionBid(newTask);
+    // this is wrong and ugly on so many levels - but a very simple way to bring the 'initial&minimum at once' functionality
+    // basically we are imitating the "bidding twice" user action
+    if(isInitial) {
+      console.log('it is iniaial!');
+      newTask.bid = parseInt(this.inputs.bid1) + 1;
+      this.stateProvider.newAuctionBid(newTask);
+      newTask.bid = this.inputs.bid;
+      let that = this;
+      setTimeout(function() {
+        that.stateProvider.newAuctionBid(newTask);
+      }, 500);
+    } else {
+       this.stateProvider.newAuctionBid(newTask);
+    }
+   
+
     this.viewCtrl.dismiss();
   }
 

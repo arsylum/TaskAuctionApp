@@ -138,7 +138,7 @@ function retrieve_state($include_uidMap = false) {
 	/////////////
 	/// TASKS //
 	///////////
-	if ($res = $db->query("SELECT * FROM `tasks`", MYSQLI_USE_RESULT)) {
+	if ($res = $db->query("SELECT * FROM `tasks`")) {
 		$state['tasks'] = array('auction' => array(), 'spontaneous' => array(), 'dinner' => array(), 'dog' => array(), 'deleted' => array());
 		while($row = $res->fetch_object()) {
 			if($row->status !== 'deleted') {
@@ -148,6 +148,7 @@ function retrieve_state($include_uidMap = false) {
 					'description' => $row->description,
 					'type' => $row->type,
 					'fixed_value' => $row->fixed_value,
+					'avg_value' => getTasksAveragePoints($row->id),
 					'status' => $row->status,
 					'winners' => array()
 				));
