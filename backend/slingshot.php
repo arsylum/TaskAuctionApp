@@ -139,7 +139,7 @@ function retrieve_state($include_uidMap = false) {
 	/// TASKS //
 	///////////
 	if ($res = $db->query("SELECT * FROM `tasks`")) {
-		$state['tasks'] = array('auction' => array(), 'spontaneous' => array(), 'dinner' => array(), 'dog' => array(), 'deleted' => array());
+		$state['tasks'] = array('auction' => array(), 'spontaneous' => array(), 'dinner' => array(), 'lunch' => array(), 'dog' => array(), 'deleted' => array());
 		while($row = $res->fetch_object()) {
 			if($row->status !== 'deleted') {
 				array_push($state['tasks'][$row->type], array(
@@ -226,18 +226,27 @@ function retrieve_state($include_uidMap = false) {
 	}
 
 	///////////////
-	/// Dinners //
+	/// Dinners // & lunch (carful, stored in the same table)
 	/////////////
 	if ($res = $db->query("SELECT * FROM `dinners`")) {
 		$n = count($state['tasks']['dinner']);
 		while($row = $res->fetch_object()) {
 			$tid = intval($row->task_id);
 			$i = $n;
-			while($state['tasks']['dinner'][--$i]['id'] !== $tid && $i >= 0) {}
-			$state['tasks']['dinner'][$i]['winners'][] = intval($row->uid);
+			while(--$i >= 0) {
+				if($state['tasks']['dinner'][$i]['id'] === $tid) {
+					$state['tasks']['dinner'][$i]['winners'][] = intval($row->uid);
+					break;
+				}
+				if($state['tasks']['lunch'][$i]['id'] === $tid) {
+					$state['tasks']['lunch'][$i]['winners'][] = intval($row->uid);
+					break;
+				}
+			}
 		}
 		$res->close();
 	}
+
 	///////////
 	/// Dog //
 	/////////
@@ -793,6 +802,16 @@ function iterate_to_next_week() {
 			foreach($dinner['winners'] as $winner) {
 				if(!in_array($winner, $uids)) { $uids[] = $winner; }
 				createTransaction($winner, $dinner['id'], $dinval, 'Cooked dinner on ' . $dinner['name'] . '. ' . randomMsg($positives));
+			}
+		}
+	}
+	// lunches
+	$lunchval = intval($state['settings']['dinner_value']);
+	foreach($state['tasks']['lunch'] as $key => $lunch) {
+		if(count($lunch['winners']) > 0) {
+			foreach($lunch['winners'] as $winner) {
+				if(!in_array($winner, $uids)) { $uids[] = $winner; }
+				createTransaction($winner, $lunch['id'], $lunchval, 'Prepared brunch on ' . $lunch['name'] . '. ' . randomMsg($positives));
 			}
 		}
 	}

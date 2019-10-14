@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-navbar>
+      <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+      </button>
+
+      <user-info-display></user-info-display>
+
+    <ion-title>Lunch</ion-title>
+
+
+  </ion-navbar>
+</ion-header>
+
+<!-- <datalist id="userlist">
+  <option *ngFor="let user of stateProvider.users" value="{{user.name}}">
+</datalist>
+ -->
+<ion-content padding>
+  <!-- <ion-list class="assign-list"> -->
+    <ion-item-group class="assign-list">
+    <div ion-item *ngFor="let task of stateProvider.tasks.lunch">  <!-- (click)="taskClicked($event, task)"> -->
+      <h3>{{task.name}}</h3>
+      
+      
+
+      <ion-list inset>
+        <ion-badge *ngIf="task.winners.length < 1" color="danger">Impending starvation!</ion-badge>
+      <div item-content class="assignees">
+        <ion-badge color="light" *ngFor="let winner of task.winners">
+         <!-- (click)="this.stateProvider.selectUser(winner)"> -->
+         {{ this.stateProvider.getUserName(winner) }}
+          <button ion-button item-end  icon-only color="danger" round (click)="this.stateProvider.abandonDinner(task, winner)">
+            <ion-icon name="close"></ion-icon>
+          </button>
+
+        </ion-badge>
+      </div>
+    </ion-list>
+
+
+      <user-selector placeholder="Add Assignee" [entryClickCallback]="addAssignee" [that]="this" [task]="task"></user-selector>
+<!--       <ion-list inset>
+        <div ion-item *ngFor="let winner of task.winners">{{this.stateProvider.getUserName(winner) }}</div>
+
+      </ion-list> -->
+      
+
+    </div>
+  </ion-item-group>
+  <!-- </ion-list> -->
+</ion-content>

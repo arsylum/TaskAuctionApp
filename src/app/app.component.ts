@@ -5,9 +5,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ControlPage } from '../pages/control/control';
 import { AuctionPage } from '../pages/auction/auction';
+import { LunchPage } from '../pages/lunch/lunch';
 import { DinnerPage } from '../pages/dinner/dinner';
 import { DashboardPage } from '../pages/dashboard/dashboard';
-import { DogPage } from '../pages/dog/dog';
+// import { DogPage } from '../pages/dog/dog';
 
 
 @Component({
@@ -26,8 +27,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Auction', component: AuctionPage },
+      { title: 'Lunch', component: LunchPage },
       { title: 'Dinner', component: DinnerPage },
-      { title: 'Dog', component: DogPage },
+      // { title: 'Dog', component: DogPage },
       { title: 'Control Room', component: ControlPage },
       { title: 'Dashboard', component: DashboardPage}
     ];

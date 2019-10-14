@@ -102,20 +102,27 @@ CREATE TABLE `tasks` (
 -- Dumping data for table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `name`, `description`, `type`, `fixed_value`, `status`) VALUES
-(47, 'Monday', 'Mondays are not edible. Make something better!', 'dinner', NULL, NULL),
-(48, 'Tuesday', 'So Hungary', 'dinner', NULL, NULL),
-(49, 'Wednesday', 'Wednesdinnerready??', 'dinner', NULL, NULL),
-(50, 'Thursday', 'Eating seeds as a passtime activity', 'dinner', NULL, NULL),
-(51, 'Friday', 'Fry day is hi day!', 'dinner', NULL, NULL),
-(52, 'Saturday', 'Why are cheese people so hamry?', 'dinner', NULL, NULL),
-(53, 'Sunday', 'Sunday is bun day! Or alternatively any other kind of food.', 'dinner', NULL, NULL),
-(63, 'Task Auction integration work', 'So we got this shiny new system that will save all our lives. But someone has to take charge of integrating it into our current lifestyle. Or maybe we all have to do this together?', 'auction', NULL, 'irrelevant'),
-(64, 'Create a task', 'There are not enough tasks yet. Create some new ones!', 'spontaneous', 80, NULL),
-(65, 'Submit a bug report', 'Crawling around all over the place - I am sure you have found some?', 'spontaneous', 140, NULL),
-(66, 'Sign up all the users into the system', 'There is not too much to it really. Click on \'Select User\' (or the current user name) then switch user, type your name and create!', 'auction', NULL, 'irrelevant'),
-(67, 'Find the hidden settings', 'The auction closing time and the value for cooking meals can not be configured in the UI. Are you a real hacker and know how to do it anyway? Documentation? *ugh*', 'auction', NULL, 'irrelevant'),
-(68, 'Get rid of these annoying demo tasks', 'Rename/edit them, or delete them whatever suits your needs, but definitely add new ones. The more the merrier!', 'auction', NULL, 'irrelevant');
+INSERT INTO `tasks` (`name`, `description`, `type`, `fixed_value`, `status`) VALUES
+('Monday', 'Mondays are not edible. Make something better!', 'dinner', NULL, NULL),
+('Tuesday', 'So Hungary', 'dinner', NULL, NULL),
+('Wednesday', 'Wednesdinnerready??', 'dinner', NULL, NULL),
+('Thursday', 'Eating seeds as a passtime activity', 'dinner', NULL, NULL),
+('Friday', 'Fry day is hi day!', 'dinner', NULL, NULL),
+('Saturday', 'Why are cheese people so hamry?', 'dinner', NULL, NULL),
+('Sunday', 'Sunday is bun day! Or alternatively any other kind of food.', 'dinner', NULL, NULL),
+('Monday', 'Mondays are not edible. Make something better!', 'lunch', NULL, NULL),
+('Tuesday', 'So Hungary', 'lunch', NULL, NULL),
+('Wednesday', 'Wedneslunchready??', 'lunch', NULL, NULL),
+('Thursday', 'Eating seeds as a passtime activity', 'lunch', NULL, NULL),
+('Friday', 'Fry day is hi day!', 'lunch', NULL, NULL),
+('Saturday', 'Why are cheese people so hamry?', 'lunch', NULL, NULL),
+('Sunday', 'Sunday is bun day! Or alternatively any other kind of food.', 'lunch', NULL, NULL),
+('Task Auction integration work', 'So we got this shiny new system that will save all our lives. But someone has to take charge of integrating it into our current lifestyle. Or maybe we all have to do this together?', 'auction', NULL, 'irrelevant'),
+('Create a task', 'There are not enough tasks yet. Create some new ones!', 'spontaneous', 80, NULL),
+('Submit a bug report', 'Crawling around all over the place - I am sure you have found some?', 'spontaneous', 140, NULL),
+('Sign up all the users into the system', 'There is not too much to it really. Click on \'Select User\' (or the current user name) then switch user, type your name and create!', 'auction', NULL, 'irrelevant'),
+('Find the hidden settings', 'The auction closing time and the value for cooking meals can not be configured in the UI. Are you a real hacker and know how to do it anyway? Documentation? *ugh*', 'auction', NULL, 'irrelevant'),
+('Get rid of these annoying demo tasks', 'Rename/edit them, or delete them whatever suits your needs, but definitely add new ones. The more the merrier!', 'auction', NULL, 'irrelevant');
 
 -- --------------------------------------------------------
 

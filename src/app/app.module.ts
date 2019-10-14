@@ -7,6 +7,8 @@ import { MyApp } from './app.component';
 import { ControlPage } from '../pages/control/control';
 import { ControlPageModule } from '../pages/control/control.module';
 import { AuctionPage } from '../pages/auction/auction';
+import { LunchPage } from '../pages/lunch/lunch';
+import { LunchPageModule } from '../pages/lunch/lunch.module';
 import { DinnerPage } from '../pages/dinner/dinner';
 import { DinnerPageModule } from '../pages/dinner/dinner.module';
 import { BidModalPageModule } from '../pages/bid-modal/bid-modal.module';
@@ -42,6 +44,7 @@ import { ConfigProvider } from '../providers/config/config';
     HttpClientModule,
     BidModalPageModule,
     DashboardPageModule,
+    LunchPageModule,
     DinnerPageModule,
     TaskEditModalPageModule,
     UserModalPageModule,
@@ -56,6 +59,7 @@ import { ConfigProvider } from '../providers/config/config';
     ControlPage,
     AuctionPage,
     DinnerPage,
+    LunchPage,
     DogPage,
     BidModalPage,
     TaskEditModalPage,
