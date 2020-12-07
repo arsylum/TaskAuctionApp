@@ -170,7 +170,7 @@ function retrieve_state($include_uidMap = false) {
 	////////////
 	/// BIDS //
 	//////////								 // make sure collab bids are processed last
-	if ($res = $db->query("SELECT * FROM `bids` ORDER BY `time` ASC")) {
+	if ($res = $db->query("SELECT * FROM `bids` ORDER BY `id` ASC")) {
 
 		while($row = $res->fetch_object()) {
 			$uid = intval($row->uid);
