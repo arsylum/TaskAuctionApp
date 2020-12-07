@@ -456,7 +456,9 @@ function new_bid() {
 			'Try placing a serious bit, maybe?',
 			'You really thought, that cheap would be acceptable?',
 			'What a miserable bid!',
-			'Och och och. No.'
+			'Och och och. No.',
+			'And here is your test result: Negative.',
+			'Your bid has been quarantined.'
 		));
 	} else {
 		$msg['suc'][] = randomMsg(array(
@@ -526,7 +528,8 @@ function dinner_take() {
 		'Saliva of the phattest!',
 		'Beat the tofu!',
 		'May the sauce be with you!',
-		'Cook dat mett!'
+		'Cook dat mett!',
+		'Dont cough into the pot.'
 	));
 	return_state();
 }
@@ -574,7 +577,10 @@ function dinner_bail() {
 		'DOOOOOOOOOOOOOOOOOOOOOOOM!',
 		'That\'t not tasy.',
 		'Coward! Those foods need real heroes to save em!',
-		'You\'re not getting any buns!'
+		'You\'re not getting any buns!',
+		'You\re gonna get us all killed.',
+		'Is it because of the \'rona?',
+		'OMG, are you infected???',
 	));
 	return_state();
 }
@@ -770,7 +776,8 @@ function iterate_to_next_week() {
 		'Abgelehnt',
 		'Sittenwidrig!',
 		'Naja',
-		'Zefix!'
+		'Zefix!',
+		'Must have been the \'rona..',
 	);
 	$uids = array();
 	// auctions
